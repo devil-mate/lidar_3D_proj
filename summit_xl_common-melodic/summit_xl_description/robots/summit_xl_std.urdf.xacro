@@ -90,12 +90,14 @@
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
 		<!-- 3d laser -->
-		<!-- <xacro:sensor_hokuyo3d prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
+		<xacro:sensor_hokuyo3d prefix="$(arg prefix)3d_laser" parent="$(arg prefix)base_link"  gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo3d> -->
-        <xacro:sensor_hokuyo3d prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link">
+		</xacro:sensor_hokuyo3d>
+        <!-- <xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)_3d_laser" parent="$(arg prefix)base_link"  gpu="$(arg gpu)" >
             <origin xyz="0.3134 0 0.2424" rpy="0 0 0"/>
-        </xacro:sensor_hokuyo3d>
+			<range_min  />
+			<range_max  />
+        </xacro:sensor_velodyne_vlp16> -->
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
