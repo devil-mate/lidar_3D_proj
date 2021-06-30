@@ -387,8 +387,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 0.6523924469947815
-        Min Value: 0.5278798937797546
+        Max Value: 2.397660970687866
+        Min Value: -0.12544435262680054
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -407,7 +407,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.029999999329447746
       Style: Flat Squares
       Topic: /robot/velodyne/point_cloud
       Unreliable: false
@@ -442,25 +442,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.757302165031433
+      Distance: 11.06004524230957
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.2616881728172302
-        Y: 1.1808722019195557
-        Z: 2.8791973818442784e-6
+        X: -0.3723298907279968
+        Y: 1.1573247909545898
+        Z: 3.117615960945841e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.1797967255115509
+      Pitch: 0.4247969090938568
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 2.217258930206299
+      Yaw: 1.6872602701187134
     Saved: ~
 Window Geometry:
   Displays:
