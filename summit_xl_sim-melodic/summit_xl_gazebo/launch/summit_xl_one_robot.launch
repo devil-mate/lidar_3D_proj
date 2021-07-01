@@ -18,7 +18,7 @@
     <arg name="omni_drive" default="false"/>
     <arg name="ros_planar_move_plugin" default="true"/>
     <arg name="launch_pad" default="false"/>
-    <arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
+    <arg name="use_gpu_for_simulation" default="true"/><!-- use_gpu_for_simulation -->
     <arg name="has_pantilt_camera" default="false"/>
     <!-- arm robot -->
     <arg name="launch_arm" default="false"/>
