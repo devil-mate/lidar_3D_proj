@@ -13,7 +13,7 @@
 
 	<!-- Import summit XL wheels -->
 	<xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
-  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" />
+  <!-- <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" /> -->
 
 
 	<!-- Import all available sensors -->
@@ -29,11 +29,11 @@
 	<!-- Flag to select the high or low quality model -->
 	<xacro:property name="hq" value="true" />
 
-	<!-- <xacro:arg name="prefix" default="summit_xl_"/> -->
-	<xacro:arg name="prefix" default="robot_"/>
+	<xacro:arg name="prefix" default="summit_xl_"/>
+	<!-- <xacro:arg name="prefix" default="robot_"/> -->
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
-	<xacro:arg name="gpu" default="false"/>
+	<xacro:arg name="gpu" default="true"/>
 
 
 
@@ -98,10 +98,8 @@
   <!-- <xacro:VLP-16 parent="$(arg prefix)base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="440" gpu="${gpu}">
     <origin xyz="0 0 0.4" rpy="0 0 0" />
   </xacro:VLP-16> -->
-        <xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)3d_laser" parent="$(arg prefix)base_link" range_min = "0.9" range_max="130.0" gpu="$(arg gpu)" >
-            <origin xyz="0.3134 0 0.5424" rpy="0 0 0"/>
-			<!-- <range_min  />
-			<range_max  /> -->
+        <xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)3d_laser" parent="$(arg prefix)base_link"  range_min = "0.9" range_max="130.0" gpu="$(arg gpu)" >
+            <origin xyz="0.3134 0.0 0.5424" rpy="0 0 0"/>
         </xacro:sensor_velodyne_vlp16>
 		<!-- ptz camera -->
 		<xacro:sensor_axis prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
