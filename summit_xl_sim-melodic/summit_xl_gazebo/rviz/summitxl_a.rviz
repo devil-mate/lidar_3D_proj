@@ -1,13 +1,13 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 78
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
         - /PointCloud21
       Splitter Ratio: 0.5
-    Tree Height: 301
+    Tree Height: 379
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -151,12 +151,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        robot_threed_laser_base_link:
+        robot_top_3d_laser_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        robot_threed_laser_link:
+        robot_top_3d_laser_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -376,14 +376,14 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
+        Max Value: 0.9922638535499573
+        Min Value: -0.00761646032333374
         Value: true
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color Transformer: AxisColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -397,8 +397,8 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.029999999329447746
-      Style: Flat Squares
-      Topic: /robot/front_3d_laser/point_cloud
+      Style: Points
+      Topic: /robot/lidar_3d/point_cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -431,25 +431,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 23.586719512939453
+      Distance: 28.43146324157715
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.3160041570663452
-        Y: 0.7089757323265076
-        Z: -0.04369830712676048
+        X: 3.856217622756958
+        Y: -4.19571590423584
+        Z: -4.653200626373291
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.37479719519615173
+      Pitch: 0.9397969841957092
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.157258987426758
+      Yaw: 2.782259941101074
     Saved: ~
 Window Geometry:
   Displays:
@@ -469,5 +469,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1389
-  X: -118
-  Y: 134
+  X: 67
+  Y: 104
