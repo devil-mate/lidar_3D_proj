@@ -5,9 +5,14 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /RobotModel A1
+        - /Front LaserScan A1
+        - /AMCL Particles A1
+        - /Global costmap A1
         - /PointCloud21
-      Splitter Ratio: 0.5
-    Tree Height: 379
+        - /PointCloud21/Autocompute Value Bounds1
+      Splitter Ratio: 0.5176470875740051
+    Tree Height: 562
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -29,7 +34,10 @@ Panels:
     SyncSource: PointCloud2
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /robot/robotnik_base_control/cmd_vel
+    Topic: /robot/robotnik_base_control/
+  - Class: rviz_plugin_tutorials/Teleop
+    Name: Teleop
+    Topic: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -89,6 +97,15 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        robot_front_laser_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_front_laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         robot_front_left_wheel:
           Alpha: 1
           Show Axes: false
@@ -205,7 +222,7 @@ Visualization Manager:
       Axis: Z
       Channel Name: intensity
       Class: rviz/LaserScan
-      Color: 255; 0; 0
+      Color: 237; 52; 203
       Color Transformer: FlatColor
       Decay Time: 0
       Enabled: true
@@ -260,19 +277,19 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
       Topic: /robot/map
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Arrow Length: 0.30000001192092896
       Axes Length: 0.30000001192092896
       Axes Radius: 0.009999999776482582
       Class: rviz/PoseArray
       Color: 255; 25; 0
-      Enabled: false
+      Enabled: true
       Head Length: 0.07000000029802322
       Head Radius: 0.029999999329447746
       Name: AMCL Particles A
@@ -281,7 +298,7 @@ Visualization Manager:
       Shape: Arrow (Flat)
       Topic: /robot/particlecloud
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
@@ -307,7 +324,7 @@ Visualization Manager:
       Axes Radius: 0.10000000149011612
       Class: rviz/Pose
       Color: 255; 25; 0
-      Enabled: false
+      Enabled: true
       Head Length: 0.30000001192092896
       Head Radius: 0.10000000149011612
       Name: Current Goal A
@@ -316,12 +333,12 @@ Visualization Manager:
       Shape: Arrow
       Topic: /robot/move_base/current_goal
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 25; 255; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
@@ -339,12 +356,12 @@ Visualization Manager:
       Shaft Length: 0.10000000149011612
       Topic: /robot/move_base/NavfnROS/plan
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 255; 85; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
@@ -362,7 +379,7 @@ Visualization Manager:
       Shaft Length: 0.10000000149011612
       Topic: /robot/move_base/TebLocalPlannerROS/local_plan
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/PointStamped
       Color: 204; 41; 204
@@ -376,8 +393,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 0.9922638535499573
-        Min Value: -0.00761646032333374
+        Max Value: 0.007324635982513428
+        Min Value: -0.007352590560913086
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -394,9 +411,9 @@ Visualization Manager:
       Name: PointCloud2
       Position Transformer: XYZ
       Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.029999999329447746
+      Selectable: false
+      Size (Pixels): 2
+      Size (m): 0.05999999865889549
       Style: Points
       Topic: /robot/lidar_3d/point_cloud
       Unreliable: false
@@ -407,7 +424,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: robot_odom
+    Fixed Frame: robot_map
     Frame Rate: 30
   Name: root
   Tools:
@@ -430,34 +447,34 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 28.43146324157715
+      Class: rviz/XYOrbit
+      Distance: 11.034564971923828
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 3.856217622756958
-        Y: -4.19571590423584
-        Z: -4.653200626373291
+        X: -2.565516948699951
+        Y: 1.495384693145752
+        Z: -1.8965070012200158e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9397969841957092
+      Pitch: 0.9697969555854797
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 2.782259941101074
+      Value: XYOrbit (rviz)
+      Yaw: 4.19728946685791
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 759
+  Height: 781
   Hide Left Dock: false
-  Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000017100000259fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000001b8000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001800500054005a002000430061006d0065007200610020004100000002500000009b0000000000000000fb0000000c00540065006c0065006f007001000001fb0000009b0000004700ffffff000000010000010f00000259fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000259000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000056d0000003efc0100000002fb0000000800540069006d006501000000000000056d000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000002e10000025900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Hide Right Dock: true
+  QMainWindow State: 000000ff00000000fd0000000400000000000001560000026ffc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000026f000000c900fffffffb0000000c00540065006c0065006f007000000002110000009b0000004700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001800500054005a002000430061006d0065007200610020004100000002500000009b0000000000000000fb0000000c00540065006c0065006f0070000000020b000000a10000004700ffffff000000010000010f0000026ffc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000026f000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004f30000003efc0100000002fb0000000800540069006d00650100000000000004f3000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000003970000026f00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Teleop:
@@ -467,7 +484,7 @@ Window Geometry:
   Tool Properties:
     collapsed: false
   Views:
-    collapsed: false
-  Width: 1389
-  X: 67
-  Y: 104
+    collapsed: true
+  Width: 1267
+  X: 121
+  Y: 145

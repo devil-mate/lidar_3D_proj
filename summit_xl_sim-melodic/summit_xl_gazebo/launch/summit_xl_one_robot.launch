@@ -7,12 +7,13 @@
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
     <arg name="xacro_robot" default="summit_xl_std.urdf.xacro"/>
-    <arg name="launch_amcl_and_mapserver" default="false"/>
+    <arg name="launch_amcl_and_mapserver" default="true"/>
     <arg name="launch_gmapping" default="false"/>
-    <arg name="launch_move_base" default="false"/>
+    <arg name="launch_move_base" default="true"/>
     <arg name="launch_robot_ekf_localization" default="false"/>
     <arg name="robot_ekf_localization_mode" default="odom"/>
-    <arg name="map_file" default="empty/empty.yaml"/>    
+    <!-- <arg name="map_file" default="empty/empty.yaml"/>     -->
+    <arg name="map_file" default="$(find myrobot_navigation)/maps/slam_02room/slam_02room.yaml"/>    
     <arg name="movebase_local_planner" default="teb"/>
     <!-- odom, complete (including gps)-->
     <arg name="omni_drive" default="false"/>
@@ -174,9 +175,9 @@
         </include>
 
         <!-- gmapping -->
-        <include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
+        <!-- <include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
             <arg name="prefix" value="$(arg prefix)"/>
-        </include>
+        </include> -->
 
         <!-- merge lasers -->
         <include if="$(arg merge_lasers)" file="$(find summit_xl_bringup)/launch/merge_laser.launch">

@@ -86,9 +86,9 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 2d laser -->
-		<!-- <xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
+		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo_ust10lx> -->
+		</xacro:sensor_hokuyo_ust10lx>
 		<!-- 3d laser -->
 		<!-- <xacro:sensor_hokuyo3d prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>

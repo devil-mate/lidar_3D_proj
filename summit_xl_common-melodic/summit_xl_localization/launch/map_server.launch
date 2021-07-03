@@ -11,9 +11,14 @@
 	<arg name="map_topic" default="map"/>
 
 	<!-- Run the map server -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg maps_path)/$(arg map_file)">
+	<!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg maps_path)/$(arg map_file)">
 		<param name="frame_id" value="$(arg frame_id)"/>
 		<remap from="map" to="$(arg map_topic)"/>
-	</node>
-
+	</node> -->
+    <arg name="mapName"  default ="$(find myrobot_navigation)/maps/slam_02room/slam_02room.yaml" />
+    <!-- <arg name="map_file" default="$(find rosbot_navigation)/maps/test_map.yaml"/> -->
+   <node name="map_server" pkg="map_server" type="map_server" args="$(arg mapName) "  > 
+        <param name="frame_id" value= " robot_map" />
+		<remap from="map" to="$(arg map_topic)"/>
+   </node>
 </launch>
