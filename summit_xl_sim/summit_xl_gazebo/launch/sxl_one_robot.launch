@@ -152,7 +152,7 @@
         </include>
         
         <!-- 使用自己的导航 -->
-         <include  if="$(arg launch_slam_and_navigation)" file ="$(find tv_navigation)/launch/tv_navigation.launch">
+         <include  if="$(arg launch_slam_and_navigation)" file ="$(find tv_navigation)/launch/sxl_navigation.launch">
             <arg name="model" value="$(arg model)"/>
             <arg name ="perRviz_open" value="false"/>
             <arg name ="slam_methods" value="$(arg slam_methods)"/>

@@ -28,9 +28,9 @@
 	<arg name="z_init_pose_robot_a" default="0" />
     <arg name="ekf_localization_robot_a" default="false"/>
     <arg name="ekf_localization_mode_a" default="odom"/>
-	<arg name="gmapping_robot_a" default="false"/>
-	<arg name="move_base_robot_a" default="false"/>
-	<arg name="slam_navigation_robot_a" default="true"/>
+	<arg name="gmapping_robot_a" default="true"/>
+	<arg name="move_base_robot_a" default="true"/>
+	<arg name="slam_navigation_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="map_file_a" default="$(arg map_file)"/>
 	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
