@@ -374,7 +374,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: robot_base_footprint
+    Fixed Frame: robot_map
     Frame Rate: 30
   Name: root
   Tools:
@@ -398,7 +398,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 12.357107162475586
+      Distance: 19.44414710998535
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
