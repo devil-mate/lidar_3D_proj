@@ -42,14 +42,15 @@
     <!-- <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" /> -->
-    <rosparam file="$(find tv_navigation)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
+    <!-- test -->
+    <!-- <rosparam file="$(find tv_navigation)/param/costmap_common_params_$(arg model).yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find tv_navigation)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find tv_navigation)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find tv_navigation)/param/global_costmap_params.yaml" command="load" /> -->
     <!-- sxl params -->
      <rosparam file="$(arg config_path)/move_base_params.yaml" command="load" />
-    <!-- <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
-    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/> -->
-    <!-- <rosparam file="$(arg config_path)/global_costmap_params_map.yaml" command="load" subst_value="true"/> -->
+    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
+    <rosparam file="$(arg config_path)/global_costmap_params_map.yaml" command="load" subst_value="true"/>
     
     <rosparam file="$(arg config_path)/local_costmap_params.yaml" command="load" subst_value="true"/>
     <rosparam file="$(arg config_path)/teb_local_planner_$(arg kinematics)_params.yaml" command="load" subst_value="true"/>
