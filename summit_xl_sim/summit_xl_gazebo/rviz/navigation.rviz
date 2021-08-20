@@ -5,7 +5,11 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Global costmap A1
+        - /Local costmap A1
         - /Global Path A1
+        - /Teb Local Plan A1
+        - /globalPath1
       Splitter Ratio: 0.5
     Tree Height: 497
   - Class: rviz/Selection
@@ -284,7 +288,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Global costmap A
@@ -294,7 +298,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: costmap
+      Color Scheme: map
       Draw Behind: false
       Enabled: true
       Name: Local costmap A
@@ -320,7 +324,7 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 32; 74; 135
       Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
@@ -370,6 +374,29 @@ Visualization Manager:
       Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
       Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: globalPath
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /robot/move_base/GlobalPlanner/plan
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -398,25 +425,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 19.44414710998535
+      Distance: 16.146347045898438
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.029539108276367188
-        Y: -5.3816375732421875
-        Z: 0
+        X: -0.20692360401153564
+        Y: -4.246095180511475
+        Z: -5.7220458984375e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9447969198226929
+      Pitch: 1.1297967433929443
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 4.247237682342529
+      Yaw: 3.7822365760803223
     Saved: ~
 Window Geometry:
   Displays:
