@@ -5,8 +5,8 @@ global_costmap:
   static_map: false
   
   plugins:
-#    - name: obstacle_laser_layer
-#      type: "costmap_2d::VoxelLayer"
+    - name: obstacle_laser_layer
+      type: "costmap_2d::VoxelLayer"
 #    - name: rgbd_obstacle_layer
 #      type: "costmap_2d::VoxelLayer"
     - name: static_map
@@ -16,10 +16,10 @@ global_costmap:
     - name: inflation_layer
       type: "costmap_2d::InflationLayer"
 
-static_map:
-    lethal_cost_threshold: 94
-    static_map: false
-    map_topic: map
-    unknown_cost_value: 1
-    trinary_costmap: false
-    use_maximum: false
+# static_map:
+#     lethal_cost_threshold: 94
+#     static_map: false
+#     map_topic: map
+#     unknown_cost_value: 1
+#     trinary_costmap: false
+#     use_maximum: false
