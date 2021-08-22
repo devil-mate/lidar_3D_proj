@@ -2,8 +2,8 @@ map_frame: $(arg map_frame)
 base_frame: $(arg base_frame)
 odom_frame: $(arg odom_frame)
 map_update_interval: 1
-maxUrange: 10.0
-maxRange: 20
+maxUrange: 5.0
+maxRange: 5
 sigma: 0.05
 kernelSize: 1
 lstep: 0.05

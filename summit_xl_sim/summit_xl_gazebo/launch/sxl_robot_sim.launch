@@ -8,7 +8,7 @@
     <arg name="z_init_pose" default="0"/>
     <arg name="xacro_robot" default="summit_xl_std.urdf.xacro"/>
     <arg name="launch_amcl_and_mapserver" default="false"/>
-    <arg name="launch_gmapping" default="true"/>
+    <arg name="launch_gmapping" default="false"/>
     <arg name="launch_move_base" default="false"/>
     <arg name="launch_slam_and_navigation" default="true"/>
     <arg name="launch_robot_ekf_localization" default="false"/>
