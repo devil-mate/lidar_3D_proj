@@ -1,7 +1,7 @@
 <launch>
   <!-- Arguments -->
   <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
-  <arg name="cmd_vel_topic" default="/robot/cmd_vel" />
+  <arg name="cmd_vel_topic" default="move_base/cmd_vel" />
   <!-- <arg name="odom_topic" default="odom" /> -->
   <arg name="odom_topic" default="robotnik_base_control/odom"/>
   <arg name="odom" default="/odom"/>
@@ -20,7 +20,8 @@
     <rosparam file="$(find summit_xl_navigation)/config2/global_costmap_params.yaml" command="load" subst_value="true"/>
     <rosparam file="$(find summit_xl_navigation)/config2/move_base_params.yaml" command="load" />
     <rosparam file="$(find summit_xl_navigation)/config2/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/config2/dwa_local_planner_params_$(arg model).yaml" command="load" />
+    <!-- <rosparam file="$(find summit_xl_navigation)/config2/dwa_local_planner_params_burger.yaml" command="load" /> -->
+    <rosparam file="$(find summit_xl_navigation)/config2/teb_local_planner_diff_params.yaml" command="load"  subst_value="true"/>
     
     <!-- <rosparam file="$(find tv_navigation)/param/teb_local_planner_diff_params.yaml" command="load" /> -->
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
