@@ -1,0 +1,28 @@
+# obstacle_range: 3.0
+# raytrace_range: 3.5
+  
+# footprint: [[-0.105, -0.105], [-0.105, 0.105], [0.041, 0.105], [0.041, -0.105]]
+footprint: [[0.362, -0.308], [0.362, 0.308], [-0.362,0.308], [-0.362, -0.308]]
+#robot_radius: 0.105
+inflation_layer:
+  inflation_radius: 0.3
+cost_scaling_factor: 3.0
+# static_map: false
+map_type: costmap
+# obstacle_laser_layer:
+#     observation_sources: scan
+#     scan: {sensor_frame: base_scan, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+obstacle_laser_layer:
+  obstacle_range: 6.5
+  raytrace_range: 8.5
+  observation_sources: front_laser rear_laser
+  front_laser: 
+    data_type: LaserScan
+    topic: $(arg front_scan_topic)
+    marking: true
+    clearing: true
+  rear_laser: 
+    data_type: LaserScan
+    topic: $(arg rear_scan_topic)
+    marking: true
+    clearing: true
