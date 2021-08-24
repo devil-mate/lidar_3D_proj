@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Front LaserScan A1
         - /Global costmap A1
         - /Local costmap A1
         - /Global Path A1
@@ -34,7 +35,7 @@ Panels:
     SyncSource: Front LaserScan A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /robot/robotnik_base_control/cmd_vel
+    Topic: /robot/robotnik_base_control/cmd_v
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -233,7 +234,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.019999999552965164
+      Size (m): 0.05000000074505806
       Style: Flat Squares
       Topic: /robot/front_laser/scan
       Unreliable: false
@@ -308,7 +309,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Local costmap A
@@ -351,7 +352,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /robot/move_base/TebLocalPlannerROS/global_plan
+      Topic: /robot/move_base/DWAPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -374,7 +375,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /robot/move_base/TebLocalPlannerROS/local_plan
+      Topic: /robot/move_base/DWAPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Class: rviz/Axes
@@ -410,8 +411,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 2.8475770950317383
-        Min Value: -0.017050862312316895
+        Max Value: 6.406558513641357
+        Min Value: -0.01900351047515869
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -419,7 +420,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: AxisColor
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 0
@@ -430,13 +431,13 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.10000000149011612
       Style: Flat Squares
       Topic: /robot/top_laser/point_cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -465,25 +466,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 16.146347045898438
+      Distance: 26.083660125732422
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.20692360401153564
-        Y: -4.246095180511475
+        X: -0.059180498123168945
+        Y: -5.785484313964844
         Z: -5.7220458984375e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.1297967433929443
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 3.7822365760803223
+      Yaw: 3.867236852645874
     Saved: ~
 Window Geometry:
   Displays:

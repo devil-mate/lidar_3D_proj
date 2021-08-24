@@ -54,6 +54,7 @@
         <!-- imu_complementary_filter-->
         <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
             <remap from="imu/mag" to="mavros/imu/mag"/>
+            <!-- <remap from="imu/data_raw" to="imu/data"/> -->
             <param name="fixed_frame" value="$(arg prefix)imu_link"/>
             <param name="publish_tf" value="false"/>
             <param name="publish_debug_topics" value="true"/>
