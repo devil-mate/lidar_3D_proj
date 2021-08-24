@@ -79,10 +79,10 @@
 
     </group>
 
-    <include if="$(arg launch_hmi)" file="$(find robotnik_hmi)/launch/robotnik_hmi.launch">
+    <!-- <include if="$(arg launch_hmi)" file="$(find robotnik_hmi)/launch/robotnik_hmi.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="launch_system_monitor" value="false"/>
-    </include>
+    </include> -->
 
 
 </launch>
