@@ -29,7 +29,7 @@
     <arg name="ekf_localization_robot_a" default="false"/>
     <arg name="ekf_localization_mode_a" default="odom"/>
 	<arg name="gmapping_robot_a" default="true"/>
-	<arg name="move_base_robot_a" default="true"/>
+	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="launch_slam_and_navigation" default="false"/>
 	<arg name="map_file_a" default="$(arg map_file)"/>
