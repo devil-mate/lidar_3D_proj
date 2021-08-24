@@ -87,11 +87,11 @@
 		</xacro:sensor_imu>
 		<!-- 2d laser -->
 		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
-			<origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+			<origin xyz="0.0 0.0 0.3" rpy="0 0 0"/>
 		</xacro:sensor_hokuyo_ust10lx>
 		<!-- 3d laser -->
 		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)top_laser" parent="$(arg prefix)base_link" prefix_topic="top_laser" range_min="0.9" range_max="130" gpu="$(arg gpu)">
-			<origin xyz="0.0 0.0 0.45" rpy="0 0 0"/>
+			<origin xyz="0.0 0.0 0.4" rpy="0 0 0"/>
 		</xacro:sensor_velodyne_vlp16>
 		        <!-- <xacro:sensor_rslidar_mems prefix="$(arg prefix)top_3d_laser" parent="$(arg prefix)base_link">
             <origin xyz="0.3134 0 0.2424" rpy="0 0 0"/>
