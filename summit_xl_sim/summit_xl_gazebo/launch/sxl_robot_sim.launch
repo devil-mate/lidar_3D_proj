@@ -106,7 +106,7 @@
 		<arg name="gps_longitude" value="$(arg gps_longitude_robot_a)"/>
         <!-- robot_a arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_a)"/>
-        <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/>
+        <!-- <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/> -->
 	</include>
 
 	<!--BEGIN ROBOT 2-->
