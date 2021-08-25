@@ -1,0 +1,13 @@
+<launch>
+  
+   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
+    <rosparam file="$(find summit_xl_localization)/config/pose_ekf_params.yaml" command="load"/>
+   <!-- <remap from="odom" to="pr2_base_odometry/odom" /> -->
+      <remap from="imu_data" to="robotnik_base_control/imu_data"/>
+      <remap from="odom" to="robotnik_base_control/odom" />
+
+  
+   </node> 
+
+  
+</launch>

@@ -22,17 +22,15 @@
   <arg name="is7dof" default="true"/>
 
   <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
-  <group unless="$(arg sim)">
-	  <rosparam file="$(find summit_xl_control)/config/sxl_robot_control.yaml" command="load" subst_value="true"/>
-
-	  <!-- load the controllers -->
-	  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
-		  robotnik_base_control
-		  joint_read_state_controller
-		  ">
-	  </node>
-
-  </group>
+  <!-- <group unless="$(arg sim)"> -->
+	  <!-- <rosparam file="$(find summit_xl_control)/config/sxl_robot_control.yaml" command="load" subst_value="true"/> -->
+	  <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args=" -->
+		  <!-- robotnik_base_control -->
+		  <!-- joint_read_state_controller -->
+		  <!-- "> -->
+	  <!-- </node> -->
+<!--  -->
+  <!-- </group> -->
     <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
   <group if="$(arg sim)">
 	  <rosparam file="$(find summit_xl_control)/config/simulation/sxl_robot_control.yaml" command="load" subst_value="true"/>
