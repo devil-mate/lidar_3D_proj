@@ -31,7 +31,7 @@
 	<arg name="gmapping_robot_a" default="true"/>
 	<arg name="move_base_robot_a" default="true"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
-	<arg name="launch_slam_and_navigation" default="false"/>
+	<arg name="launch_slam_and_navigation" default="true"/>
 	<arg name="map_file_a" default="$(arg map_file)"/>
 	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
 	<arg name="launch_pad_a" default="false"/>
@@ -93,7 +93,6 @@
         <arg name="robot_ekf_localization_mode" value="$(arg ekf_localization_mode_a)"/>
 		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_a)"/>
-		<arg name="launch_slam_and_navigation" value="$(arg launch_slam_and_navigation)"/>
 		<arg name="map_file" value="$(arg map_file_a)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
 		<arg name="omni_drive" value="$(arg omni_drive)"/>
