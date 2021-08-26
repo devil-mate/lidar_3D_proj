@@ -2,7 +2,7 @@ global_costmap:
   global_frame: $(arg global_frame)
   robot_base_frame: $(arg base_frame)
   update_frequency: 5.0
-  static_map: true
+  static_map: false
   
   plugins:
     - name: obstacle_laser_layer

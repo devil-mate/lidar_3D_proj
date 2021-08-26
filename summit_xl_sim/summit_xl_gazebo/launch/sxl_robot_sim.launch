@@ -31,7 +31,7 @@
 	<arg name="gmapping_robot_a" default="true"/>
 	<arg name="move_base_robot_a" default="true"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
-	<arg name="launch_slam_and_navigation" default="true"/>
+
 	<arg name="map_file_a" default="$(arg map_file)"/>
 	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
 	<arg name="launch_pad_a" default="false"/>
