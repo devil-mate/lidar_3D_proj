@@ -11,7 +11,7 @@
     <arg name="xacro_robot_path" default="$(eval find(xacro_robot_package) + '/robots/' + xacro_robot)"/>
     <arg name="launch_amcl_and_mapserver" default="false"/>
     <arg name="launch_gmapping" default="true"/>
-    <arg name="launch_move_base" default="true"/>
+    <arg name="launch_move_base" default="false"/>
     <arg name="launch_slam_and_navigation" default="false"/>
     <arg name="launch_robot_ekf_localization" default="false"/>
     <arg name="robot_ekf_localization_mode" default="odom"/>
