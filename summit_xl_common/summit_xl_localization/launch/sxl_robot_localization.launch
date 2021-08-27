@@ -7,12 +7,13 @@
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 	<arg name="odom_topic" default="robotnik_base_control/odom"/>
   <arg name="imu_topic" default="imu/data"/>
+  <arg name="gpsodom_topic" default="odometry/gps"/>
    <arg name="global_frame" default="$(arg prefix)map"/>
 
 
   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
       <!-- imu/odom  location-->
-    <node if="$(arg launch_robot_location)" pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_odom" clear_params="true" output="screen">      
+    <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_imu_odom" clear_params="true" output="screen">      
       <!-- pub  -->
       <remap from="odometry/filtered" to="odometry/filtered_imuodom" />
       <param name="frequency" value="45"/>
@@ -23,6 +24,7 @@
       <param name="world_frame" value="$(arg odom_frame)"/>
       <param name="odom0" value="$(arg odom_topic)"/> <!-- previously: /odom -->
       <param name="imu0" value="$(arg imu_topic)"/>        <!-- previously: /imu/data -->
+      <param name="odom1" value="$(arg gpsodom_topic)"/>       
       <rosparam param="odom0_config">[true, true, false,
                                       false, false, false,
                                       false, false, false,
@@ -33,10 +35,19 @@
                                      false, false, false,
                                      false, false, true,
                                      true, false, false]</rosparam>
-      <param name="odom0_differential" value="true"/>
-      <param name="imu0_differential" value="false" />
+      <rosparam param="odom1_config">[true, true, false,
+                                false, false, false,
+                                false, false, false,
+                                false, false, false,
+                                false, false, false]</rosparam>
+      
+      
       <param name="odom0_relative" value="false"/>
+      <param name="odom0_differential" value="true"/>
+      <param name="odom1_relative" value="false"/>
+      <param name="odom1_differential" value="true"/>
       <param name="imu0_relative" value="false"/>
+      <param name="imu0_differential" value="false" />
       <param name="imu0_remove_gravitational_acceleration" type="bool" value="true"/>
       <param name="print_diagnostics" value="false"/>
    </node>
@@ -54,7 +65,7 @@
      <!--node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.40 0 0 0 1 base_footprint fcu 50"/--> 
 
      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
-   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_odom" clear_params="true" output="screen">      
+   <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc_gpsodom" clear_params="true" output="screen">      
 
       <remap from="odometry/filtered" to="odometry/filtered_gpsodom" />
       <rosparam command="load" file="$(find summit_xl_localization)/config/local_ekf_params.yaml" subst_value="true"/>
@@ -63,14 +74,12 @@
                                       true,  true, true,
                                       true, true, true,
                                       false, false, false]</rosparam>
-
-      <!-- from gps, use only position -->
       <rosparam param="odom1_config">[true, true, false,
                                       false, false, false,
                                       false, false, false,
                                       false, false, false,
                                       false, false, false]</rosparam>
       
-   </node>
+   </node> -->
 
 </launch>

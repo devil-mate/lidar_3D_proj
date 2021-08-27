@@ -6,7 +6,7 @@ base_link_frame:  $(arg prefix)base_footprint
 map_frame:  $(arg global_frame)
 world_frame:  $(arg global_frame)
 
-odom0: odometry/filtered_gpsodom
+odom0: odometry/filtered_imuodom
 odom1: odometry/gps
 
 odom0_differential:  true
