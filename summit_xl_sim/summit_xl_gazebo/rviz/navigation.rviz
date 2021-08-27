@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1
         - /TF1/Frames1
         - /Global Path A1
         - /GlobalMap1
@@ -13,6 +12,7 @@ Panels:
         - /GlobalMap1/dwa_global_planner1
         - /LocalMap1
         - /LocalMap1/dwa_local_planner1
+        - /Sensors_laser1
         - /Sensors_laser1/Front LaserScan A1
         - /Sensors_other1
       Splitter Ratio: 0.47826087474823
@@ -169,15 +169,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        robot_top_laser_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_top_laser_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Name: RobotModel A
       Robot Description: robot/robot_description
       TF Prefix: ""
@@ -283,10 +274,8 @@ Visualization Manager:
           Value: true
         robot_odom:
           Value: true
-        robot_top_laser_base_link:
-          Value: false
-        robot_top_laser_link:
-          Value: false
+        utm:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -327,9 +316,8 @@ Visualization Manager:
                   {}
                 robot_imu_link:
                   {}
-                robot_top_laser_base_link:
-                  robot_top_laser_link:
-                    {}
+            utm:
+              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -590,7 +578,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.019999999552965164
+          Size (m): 0.10000000149011612
           Style: Flat Squares
           Topic: /robot/front_laser/scan
           Unreliable: false
@@ -707,25 +695,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 26.370990753173828
+      Distance: 19.730600357055664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.8282683491706848
-        Y: -1.1310851573944092
-        Z: -1.9441496133804321
+        X: 1.7926952838897705
+        Y: -3.170926809310913
+        Z: -5.08761739730835
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.0647969245910645
+      Pitch: 1.524796485900879
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.855433464050293
+      Yaw: 3.1604368686676025
     Saved: ~
 Window Geometry:
   Displays:
