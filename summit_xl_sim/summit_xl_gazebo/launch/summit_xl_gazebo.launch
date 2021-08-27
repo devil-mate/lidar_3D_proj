@@ -25,8 +25,8 @@
     <arg name="x_init_pose_robot_a" default="0" />
     <arg name="y_init_pose_robot_a" default="-1.50" />
     <arg name="z_init_pose_robot_a" default="0" />
-    <arg name="gmapping_robot_a" default="true"/>
-    <arg name="move_base_robot_a" default="true"/>
+    <arg name="gmapping_robot_a" default="false"/>
+    <arg name="move_base_robot_a" default="false"/>
     <arg name="movebase_local_planner_a" default="teb"/>
     <arg name="amcl_and_mapserver_a" default="false"/>
     <arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
