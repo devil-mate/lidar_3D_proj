@@ -3,12 +3,12 @@ sensor_timeout:  0.1
 two_d_mode:  true
 odom_frame:  $(arg odom_frame)
 base_link_frame:  $(arg base_frame)
-map_frame:  $(arg global_frame)
+# map_frame:  $(arg odom_frame)
 world_frame:  $(arg odom_frame)
 
 odom0: odometry/filtered_imuodom
 odom1: odometry/gps
-
+publish_tf: true
 odom0_differential:  true
 odom0_relative:  false
 odom1_differential:  true
