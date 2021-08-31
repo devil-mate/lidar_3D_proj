@@ -13,6 +13,7 @@ Panels:
         - /LocalMap1
         - /LocalMap1/dwa_local_planner1
         - /Sensors_laser1
+        - /Sensors_laser1/Rear LaserScan A1
         - /Sensors_laser1/Front LaserScan A1
         - /Sensors_other1
       Splitter Ratio: 0.47826087474823
@@ -504,10 +505,10 @@ Visualization Manager:
           Axis: Z
           Channel Name: intensity
           Class: rviz/LaserScan
-          Color: 85; 0; 255
+          Color: 196; 160; 0
           Color Transformer: FlatColor
           Decay Time: 0
-          Enabled: false
+          Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 0
@@ -518,13 +519,13 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.019999999552965164
+          Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /robot/rear_laser/scan
+          Topic: /robot/scan_filtered
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: false
+          Value: true
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -567,7 +568,7 @@ Visualization Manager:
           Color: 255; 0; 0
           Color Transformer: FlatColor
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Max Intensity: 0
@@ -584,7 +585,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
       Enabled: true
       Name: Sensors_laser
     - Class: rviz/Group
@@ -695,25 +696,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 19.730600357055664
+      Distance: 56.02065658569336
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.7926952838897705
-        Y: -3.170926809310913
-        Z: -5.08761739730835
+        X: 0.9381120204925537
+        Y: -2.3517251014709473
+        Z: -5.274564266204834
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.524796485900879
+      Pitch: 1.094796895980835
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.1604368686676025
+      Yaw: 2.975435495376587
     Saved: ~
 Window Geometry:
   Displays:

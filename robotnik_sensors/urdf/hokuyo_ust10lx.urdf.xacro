@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo_ust10lx" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-2.3562 max_angle:=2.3562 gpu:=^|true">
+  <xacro:macro name="sensor_hokuyo_ust10lx" params="prefix parent prefix_topic:='front_laser' *origin min_angle:=-3.14 max_angle:=3.14 gpu:=^|true">
     
     <joint name="${prefix}_base_joint" type="fixed">
       <xacro:insert_block name="origin" />

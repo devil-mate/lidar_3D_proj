@@ -14,6 +14,8 @@
     <arg name="launch_move_base" default="false"/>
     <arg name="launch_pose_ekf" default="false"/>
     <arg name="launch_robot_location" default="true"/>
+    <arg name="laser_raw_topic" default="front_laser/scan"/>
+    <!-- <arg name="laserfilterd_topic" default="filterd_scan"/> -->
 
     <arg name="launch_robot_ekf_localization" default="false"/>
     <arg name="robot_ekf_localization_mode" default="odom"/>
@@ -67,6 +69,13 @@
         <param name="use_mag" value="false"/>
         <param name="gain_acc" value="0.005"/>
         <param name="gain_mag" value="0.001"/>
+    </node>
+
+    <!-- laser filter -->
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
+        <rosparam command="load" file="$(find summit_xl_navigation)/config/laserfilter_params.yaml" />
+        <remap from="scan" to="$(arg laser_raw_topic)" />
+        <!-- <remap from="scan_filtered" to="$(arg laserfilterd_topic)" /> -->
     </node>
     
     <!-- imu/odom ekf  -->
