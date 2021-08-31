@@ -53,6 +53,7 @@
 	<arg name="gps_latitude" default="39.5080331"/>
 	<arg name="gps_longitude" default="-0.4619816"/>
     <arg name="cmd_vel_topic" default="move_base/cmd_vel" />
+  
 
     <!-- start\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
     <!-- imu_complementary_filter-->

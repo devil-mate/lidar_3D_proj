@@ -6,9 +6,11 @@
 	<arg name="odom_frame" default="$(arg prefix)odom"/> 
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 	<arg name="odom_topic" default="robotnik_base_control/odom"/>
+	<arg name="real_odom_topic" default="odometry/filtered_imuodom"/>
   <arg name="imu_topic" default="imu/data"/>
    <!-- <arg name="global_frame" default="$(arg prefix)map"/> -->
    <arg name="global_frame" default="world_frame"/>
+   <arg name="merger_gps" default="false"/>
 
 
   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
@@ -23,9 +25,9 @@
       <param name="odom_frame" value="$(arg odom_frame)"/>
       <param name="base_link_frame" value="$(arg base_frame)"/>
       <param name="world_frame" value="$(arg odom_frame)"/>
-      <param name="publish_tf" value="false"/>
-
       <!-- <param name="map" value="$(arg odom_frame)"/> --> 
+      <param name="publish_tf" value="true"/>
+      
       <param name="odom0" value="$(arg odom_topic)"/> <!-- previously: /odom -->
       <param name="imu0" value="$(arg imu_topic)"/>        <!-- previously: /imu/data -->    
       <rosparam param="odom0_config">[true, true, false,
@@ -51,7 +53,7 @@
    </node>
   
   <!-- gps data -->
-  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+  <node if="$(arg merger_gps)" pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
     <remap from="imu/data" to="imu/data"/>    
     <!-- <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>     -->
     <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>    
@@ -59,12 +61,9 @@
     <!-- pub -->
     <!-- <remap from="odometry/gps" to="odometry/gps" /> --> 
     <rosparam command="load" file="$(find summit_xl_localization)/config/navsat_transform_param.yaml" subst_value="true"/>
-  </node>
-
-     <!--node pkg="tf" type="static_transform_publisher" name="fcu_broadcaster" args="0 -0.1 0.40 0 0 0 1 base_footprint fcu 50"/--> 
-
-     
-   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+  </node>     
+   <node if="$(arg merger_gps)" pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+      <!-- pub -->
       <remap from="odometry/filtered" to="odometry/filtered_gpsodom" />
       <rosparam command="load" file="$(find summit_xl_localization)/config/world_ekf_params.yaml" subst_value="true"/>
       <rosparam param="odom0_config">[true, true, true,
