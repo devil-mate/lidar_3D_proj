@@ -5,6 +5,7 @@ wait_for_datum:  $(arg wait_for_datum)
 zero_altitude:  true
 broadcast_utm_transform:  true
 publish_filtered_gps:  true
+world_frame: world_frame
 
 
 #<!-- If your IMU does not account for magnetic declination -->

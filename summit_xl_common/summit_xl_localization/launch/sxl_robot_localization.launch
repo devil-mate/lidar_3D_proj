@@ -53,7 +53,7 @@
    </node>
   
   <!-- gps data -->
-  <node if="$(arg merger_gps)" pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+  <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
     <remap from="imu/data" to="imu/data"/>    
     <!-- <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>     -->
     <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>    
