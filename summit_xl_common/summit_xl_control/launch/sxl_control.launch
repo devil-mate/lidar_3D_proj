@@ -84,7 +84,8 @@
 
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
-    <rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
+    <!-- <rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" /> -->
+    <rosparam command="load" file="$(find tv_task)/config/tv_twist_mux.yaml" />
     <remap from="cmd_vel_out" to="$(arg cmd_vel)" />
   </node>
   <node pkg="twist_mux" type="twist_marker" name="twist_marker">

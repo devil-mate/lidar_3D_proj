@@ -53,7 +53,7 @@
         <!-- Load the URDF into the ROS Parameter Server -->
         <include file="$(find summit_xl_gazebo)/launch/include/sxl_one_robot_bringup.launch"/>
         <include file="$(find summit_xl_gazebo)/launch/include/gazebo_spawn.launch"/>
-        <!-- start summit_xl_control nodes -->
+        <!-- start summit_xl_control nodes /// twist_mux -->
         <include file="$(find summit_xl_control)/launch/sxl_control.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
             <arg name="prefix" value="$(arg prefix)"/>
