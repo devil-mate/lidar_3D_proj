@@ -10,8 +10,11 @@
     <arg name="launch_robot_b" default="false"/>
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
-	<arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/>
-	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/tv_test.world"/> -->
+
+	<!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+	<!-- <arg name="gazebo_world" default="worlds/empty.world"/>  -->
+		<arg name="gazebo_world" value="$(find tv_gazebo)/worlds/tv_test.world"/>
+	<!-- <arg name="gazebo_world" value="$(find tv_gazebo)/worlds/building.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
     <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
@@ -87,7 +90,7 @@
     <arg name="moveit_movegroup_c" default="false"/>
 
 	<!--BEGIN ROBOT 1-->
-	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/sxl_one_robot_gazebo.launch">
+	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/tv_one_robot_gazebo.launch">
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>

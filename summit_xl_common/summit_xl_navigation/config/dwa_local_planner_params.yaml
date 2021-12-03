@@ -47,8 +47,8 @@ base_local_planner: dwa_local_planner/DWAPlannerROS
 DWAPlannerROS:
 
 # Robot Configuration Parameters
-  max_vel_x: 6.6
-  min_vel_x: -1.3
+  max_vel_x: 4
+  min_vel_x: 0
 
   max_vel_y: 0.0
   min_vel_y: 0.0

@@ -51,7 +51,8 @@
 
     <group ns="$(arg id_robot)">
 
-        <include file="$(find summit_xl_gazebo)/launch/sxl_navigation_base.launch">
+        <!-- <include file="$(find summit_xl_gazebo)/launch/tv_navigation_base.launch"> -->
+        <include file="$(find tv_navigation)/launch/tv_navigation_base.launch">
             <arg name="merge_lasers" default="$(arg merge_lasers)"/>
             <arg name="launch_gmapping" default="$(arg launch_gmapping)"/>
             <arg name="launch_move_base" default="$(arg launch_move_base)"/>
@@ -62,7 +63,7 @@
         <!-- \\\\\\\\\\\\\\\\\other\\\\\\\\\\\\\ -->
         <!-- start summit_xl_pad nodes -->
         <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
-            <arg name="pad_model" value="$(arg pad_model)"/>
+        <arg name="pad_model" value="$(arg pad_model)"/>
         </include>
 
         <!-- base_hw_sim -->

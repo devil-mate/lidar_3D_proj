@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<launch>  
+	
+	<arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+	<arg name="odom_frame" default="$(arg prefix)odom"/> 
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+	<arg name="odom_topic" default="robotnik_base_control/odom"/>
+	<arg name="real_odom_topic" default="odometry/filtered_imuodom"/>
+  <arg name="imu_topic" default="imu/data"/>
+   <!-- <arg name="global_frame" default="$(arg prefix)map"/> -->
+   <arg name="global_frame" default="world_frame"/>
+   <arg name="merger_gps" default="false"/>
+
+
+  <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
+      <!-- imu/odom  location-->
+      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_loc1_odom" clear_params="true" output="screen">      
+      <!-- pub  -->
+      <remap from="odometry/filtered" to="odometry/filtered_imuodom" />
+      <param name="frequency" value="45"/>
+      <param name="sensor_timeout" value="0.1"/>
+      <param name="two_d_mode" type="bool" value="true"/>
+      <param name="odom_frame" value="$(arg odom_frame)"/>
+      <param name="base_link_frame" value="$(arg base_frame)"/>
+      <param name="world_frame" value="$(arg odom_frame)"/>
+      <!-- <param name="map" value="$(arg odom_frame)"/> --> 
+      <param name="publish_tf" value="true"/>
+      
+      <param name="odom0" value="$(arg odom_topic)"/> <!-- previously: /odom -->
+      <param name="imu0" value="$(arg imu_topic)"/>        <!-- previously: /imu/data -->    
+      <rosparam param="odom0_config">[true, true, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false]</rosparam>
+      <rosparam param="imu0_config">[false, false, false,
+                                     false, false, false, 
+                                     false, false, false,
+                                     false, false, true,
+                                     true, false, false]</rosparam>
+
+      
+      
+      <param name="odom0_relative" value="false"/>
+      <param name="odom0_differential" value="true"/>
+
+      <param name="imu0_relative" value="false"/>
+      <param name="imu0_differential" value="false" />
+      <param name="imu0_remove_gravitational_acceleration" type="bool" value="true"/>
+      <param name="print_diagnostics" value="false"/>
+   </node>
+  
+  <!-- gps data -->
+  <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+    <remap from="imu/data" to="imu/data"/>    
+    <!-- <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>     -->
+    <remap from="odometry/filtered" to="odometry/filtered_imuodom"/>    
+    <remap from="gps/fix" to="gps/NavSatFix"/>   
+    <!-- pub -->
+    <!-- <remap from="odometry/gps" to="odometry/gps" /> --> 
+    <rosparam command="load" file="$(find summit_xl_localization)/config/navsat_transform_param.yaml" subst_value="true"/>
+  </node>     
+   <node if="$(arg merger_gps)" pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+      <!-- pub -->
+      <remap from="odometry/filtered" to="odometry/filtered_gpsodom" />
+      <rosparam command="load" file="$(find summit_xl_localization)/config/world_ekf_params.yaml" subst_value="true"/>
+      <rosparam param="odom0_config">[true, true, true,
+                                      true, true, true,
+                                      true,  true, true,
+                                      true, true, true,
+                                      false, false, false]</rosparam>
+      <rosparam param="odom1_config">[true, true, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false,
+                                      false, false, false]</rosparam>
+      
+   </node> 
+
+</launch>
