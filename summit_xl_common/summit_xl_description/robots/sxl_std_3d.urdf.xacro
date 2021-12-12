@@ -86,9 +86,9 @@
 			<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
 		</xacro:sensor_imu>
 		<!-- 2d laser -->
-		<xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
+		<!-- <xacro:sensor_hokuyo_ust10lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.3" rpy="0 0 0"/>
-		</xacro:sensor_hokuyo_ust10lx>
+		</xacro:sensor_hokuyo_ust10lx> -->
 		<!-- 3d laser -->
 		<xacro:sensor_velodyne_vlp16 prefix="$(arg prefix)top_laser" parent="$(arg prefix)base_link" prefix_topic="top_laser" range_min="0.9" range_max="130" gpu="$(arg gpu)">
 			<origin xyz="0.0 0.0 0.4" rpy="0 0 0"/>
@@ -101,13 +101,9 @@
 			<origin xyz="0.19 0 0.26" rpy="0 ${15*PI/180} 0"/>
 		</xacro:sensor_axis>
 	  <!-- RGBD -->
-	  	<!-- <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
+	  <xacro:sensor_orbbec_astra prefix="$(arg prefix)front_rgbd_camera" parent="$(arg prefix)base_link" prefix_topic="front_rgbd_camera">
 			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
-		</xacro:sensor_orbbec_astra> -->
-		<!-- zed -->
-		<xacro:stereolabs_zed prefix="$(arg prefix)front_zed_camera" parent="$(arg prefix)base_link" >
-			<origin xyz="0.324 0.012 0.172" rpy="0 0 0"/>
-		</xacro:stereolabs_zed>
+		</xacro:sensor_orbbec_astra>
 	  <!-- GPS -->
 	  <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link" gps_latitude="$(arg gps_latitude)" gps_longitude="$(arg gps_longitude)">
 			<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
