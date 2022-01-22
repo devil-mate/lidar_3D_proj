@@ -1,0 +1,89 @@
+<launch>
+    <arg name="logPath" default="/home/log/"/>
+    <!-- <arg name="groupNameSpace" default="tracked_vehicle"/> -->
+    <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="groupNameSpace" default="robot"/>
+    <!-- <arg name="groupNameSpace" default="robot"/> -->
+    <arg name="perRviz_open" default="false"/>
+    <arg name="cmdGUI" default="false"/>
+    <arg name="communicateRos" default="false"/>
+    <arg name="prefix" default="robot"/>
+
+    <!-- 仿真参数更改 -->
+    <param name="use_sim_time" value="true" />
+    <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationsxl.rviz" />
+    <arg name="laser_raw_topic" default="front_laser/scan"/> 
+    <arg name="imu_raw_data" default="imu/data_raw" />
+    <arg name="imu_raw_mag" default="mavros/imu/mag" /> <!--default false-->
+    <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
+    <arg name="gps_raw" default="gps/NavSatFix"/>
+    <arg name="cmd_vel_out" default="robotnik_base_control/cmd_vel"/>
+    <arg name="imuFilter_fixed_frame" default="$(arg prefix)_imu_link"/>
+    <arg name="laser_box_frame" default="$(arg prefix)_front_laser_base_link"/>
+    <arg name="base_frame" default="$(arg prefix)_base_footprint"/>
+    <arg name="laser_frame" default="$(arg prefix)_front_laser_link"/>
+    <!-- <arg name="base_frame" default="base_footprint"/> -->
+
+    <group ns="$(arg groupNameSpace)">
+        <arg name="paramyaml" value="$(find tv_task)/config/config.yaml"/>
+        <arg name="usrConfigyaml" value="$(find tv_task)/config/usr_config.yaml"/>
+        <param name="easylogPath" type="string" value="$(arg logPath)"/>
+        <rosparam file="$(arg usrConfigyaml)" command="load"/>
+        <!-- TODO yaml 中更改launch配置？ -->
+        <!-- <param groupNameSpace="$(arg paramyaml)" value="$(arg groupNameSpace)"/> -->
+        <!-- <group ns="$(arg groupNameSpace)"> -->
+
+        <!-- task -->
+        <!-- <node if="$(arg communicateRos)" pkg="rosserial_server" name="socket_node" type="socket_node"/> -->
+        <node pkg="tv_task"  name="controlBox_node" type="controlBox_node" output="screen" >
+            <!-- <remap from = "platform_state" to = "xxxxx"/> -->
+            <!-- <remap from = "/move_base_action/goal" to = "/robot/move_base/goal"/>
+            <remap from = "/move_base_action/cancel" to = "/robot/move_base/cancel"/> -->
+            <!-- <remap from = "cmd_vel" to = "/robot/robotnik_base_control/cmd_vel"/> -->
+        </node>
+        <node pkg="tv_task"  name="movePlatform_node" type="movePlatform_node" output="screen" >
+            <param name="delay" type="int" value="5000"/>
+        </node>
+
+        <!-- 激光雷达数据 -->
+        <!-- <include file="$(find tv_bringup)/launch/lidar2D.launch">
+        </include> -->
+
+        <!-- rviz 模型解析以及启动 -->
+        <!-- <include file="$(find tv_bringup)/launch/tv_bringup_base.launch">
+        </include>  -->
+
+        <!--navigation -->
+        <!-- <include file ="$(find tv_navigation)/launch/t3_navigation.launch">
+        </include > -->
+        <include file ="$(find tv_navigation)/launch/tv_navigation.launch">
+            <arg name="prefix" value="$(arg prefix)"/>
+            <arg name="rvizConfig" value="$(arg rvizConfig)"/>
+            <arg name="laser_raw_topic" value="$(arg laser_raw_topic)"/> 
+            <arg name="imu_raw_data" value="$(arg imu_raw_data)" />
+            <!-- <arg name="imu_raw_data" value="imu/data_raw" /> -->
+            <arg name="imu_raw_mag" value="$(arg imu_raw_mag)" /> <!--value false-->
+            <arg name="odom_raw_topic" value="$(arg odom_raw_topic)" />
+            <!-- <arg name="odom_raw_topic" value="robotnik_base_control/odom" /> -->
+            <arg name="gps_raw" value="$(arg gps_raw)"/>
+            <arg name="cmd_vel_out" value="$(arg cmd_vel_out)"/>
+
+            <arg name="imuFilter_fixed_frame" value="$(arg imuFilter_fixed_frame)"/>
+            <arg name="laser_box_frame" value="$(arg laser_box_frame)"/>
+            <arg name="base_frame" value="$(arg base_frame)"/>
+            <arg name="laser_frame" value="$(arg laser_frame)"/>
+        </include >
+        <group if ="$(arg cmdGUI)">
+            <include file="$(find tv_gui)/launch/tv_gui.launch"/>
+        </group>
+    </group>
+
+
+</launch>
+
+
+
+
+
+
+

@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <launch>
-	<!-- 启动仿真模型（机器人和world） -->
+
     <!-- arg to config the launch file-->
 
     <!--launch_navigation and launch_navigation_nomap args are exclusive
     and they are (or not) launched for all robots-->
-    <arg name="launch_rviz" default="true"/>
+    <arg name="launch_rviz" default="false"/>
     <arg name="launch_robot_a" default="true"/>
     <arg name="launch_robot_b" default="false"/>
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
-    <!-- <arg name="world_name" default="$(find summit_xl_gazebo)/worlds/temp_out.world"/> -->
-	<arg name="world_name" value="$(find mygazebo)/worlds/house_2room.world"/>
+	<arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/>
+	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/tv_test.world"/> -->
+	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
+    <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
     <arg name="debug" default="false"/>
     <arg name="omni_drive" default="false"/>
@@ -20,17 +22,18 @@
     <arg name="use_gpu_for_simulation" default="false"/>
 	<arg name="file_rviz" default="$(find summit_xl_gazebo)/rviz/navigation.rviz"/>
 
+
 	<!--params of the different robots-->
 	<!-- GPS default position of Robotnik at Fuente del Jarro-->
 	<!-- robot a -->
 	<arg name="id_robot_a" default="robot"/>
 	<arg name="x_init_pose_robot_a" default="0" />
-	<arg name="y_init_pose_robot_a" default="1.5" />
+	<arg name="y_init_pose_robot_a" default="-1.5" />
 	<arg name="z_init_pose_robot_a" default="0" />
     <arg name="ekf_localization_robot_a" default="false"/>
     <arg name="ekf_localization_mode_a" default="odom"/>
-	<arg name="gmapping_robot_a" default="false"/>
-	<arg name="move_base_robot_a" default="false"/>
+	<arg name="gmapping_robot_a" default="true"/>
+	<arg name="move_base_robot_a" default="true"/>
 	<arg name="slam_navigation_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="map_file_a" default="$(arg map_file)"/>
@@ -84,7 +87,7 @@
     <arg name="moveit_movegroup_c" default="false"/>
 
 	<!--BEGIN ROBOT 1-->
-	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/sxl_one_robot.launch">
+	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/sxl_one_robot_gazebo.launch">
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
@@ -107,7 +110,7 @@
 		<arg name="gps_longitude" value="$(arg gps_longitude_robot_a)"/>
         <!-- robot_a arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_a)"/>
-        <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/>
+        <!-- <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/> -->
 	</include>
 
 	<!--BEGIN ROBOT 2-->
@@ -166,9 +169,9 @@
 
     <!-- gazebo simulation and rviz visualization-->
 
-    <include file="$(find summit_xl_gazebo)/launch/include/gazebo_rviz.launch">
-		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
-        <arg name="world" value="$(arg world_name)"/>
+    <include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">
+        <arg name="launch_rviz" value="$(arg launch_rviz)"/>
+        <arg name="world" value="$(arg gazebo_world)"/>
         <arg name="debug" value="$(arg debug)"/>
         <arg name="file_rviz" value="$(arg file_rviz)"/>
     </include>

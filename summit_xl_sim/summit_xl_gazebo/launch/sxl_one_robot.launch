@@ -6,17 +6,18 @@
     <arg name="x_init_pose" default="0"/>
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
+    <arg name="xacro_robot_package" default="summit_xl_description"/>
     <arg name="xacro_robot" default="summit_xl_std.urdf.xacro"/>
+    <arg name="xacro_robot_path" default="$(eval find(xacro_robot_package) + '/robots/' + xacro_robot)"/>
     <arg name="launch_amcl_and_mapserver" default="false"/>
-    <arg name="launch_gmapping" default="false"/>
-    <arg name="launch_move_base" default="false"/>
-    <arg name="launch_slam_and_navigation" default="false"/>
+    <arg name="dataFusion" default="true"/> 
+    <arg name="launch_gmapping" default="true"/>
+    <arg name="launch_move_base" default="true"/>
     <arg name="launch_robot_ekf_localization" default="false"/>
     <arg name="robot_ekf_localization_mode" default="odom"/>
     <arg name="map_file" default="empty/empty.yaml"/>
     <arg name="movebase_local_planner" default="teb"/>
-      <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
-    <arg name="slam_methods" default="gmapping" doc="slam type [gmapping, cartographer, hector, karto, frontier_exploration]"/>
+    
     <!-- odom, complete (including gps)-->
     <arg name="omni_drive" default="false"/>
     <arg name="ros_planar_move_plugin" default="false"/>
@@ -25,9 +26,10 @@
     <arg name="has_pantilt_camera" default="false"/>
     <!-- arm robot -->
     <arg name="launch_arm" default="false"/>
-    <arg name="launch_moveit_movegroup" default="false"/>
-    <arg name="kinova_arm" default="j2s7s300"/>
-    <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
+    <arg name="arm_manufacturer" default="trossen"/>
+	<arg name="arm_model" default="vx300s"/>
+    <arg name="launch_moveit" default="false"/>
+    <arg name="arm_prefix" default="$(arg prefix)$(arg arm_model)"/>
 
     <!-- only for advanced simulation -->
     <arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
@@ -47,60 +49,21 @@
 	<arg name="gps_latitude" default="39.5080331"/>
 	<arg name="gps_longitude" default="-0.4619816"/>
 
-
-    <!-- BEGIN ROBOT-->
     <group ns="$(arg id_robot)">
 
-        <!-- Load the URDF into the ROS Parameter Server -->
-        <include file="$(find summit_xl_gazebo)/launch/sxl_one_robot_bringup.launch"/>
-        <include file="$(find summit_xl_gazebo)/launch/include/gazebo_spawn.launch">
-	    </include >
-        <!-- start summit_xl_control nodes -->
-        <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
-            <arg name="id_robot" value="$(arg id_robot)"/>
-            <arg name="prefix" value="$(arg prefix)"/>
-            <arg name="sim" value="true"/>
-
-            <arg if="$(arg omni_drive)" name="kinematics" value="omni"/>
-            <arg unless="$(arg omni_drive)" name="kinematics" value="skid"/>
-
-            <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
-            <arg name="sim_arm_control" value="$(arg launch_arm)"/>
-            <arg name="launch_pantilt_camera_controller" value="$(arg has_pantilt_camera)"/>
-
-            <arg name="kinova_arm" value="$(arg kinova_arm)"/>
-            <arg name="arm_prefix" value="$(arg arm_prefix)"/>
-            <arg name="odom_broadcast_tf" unless="$(arg launch_robot_ekf_localization)" value="true"/>
-            <arg name="odom_broadcast_tf" if="$(arg launch_robot_ekf_localization)" value="false"/>
-
+        <include file="$(find summit_xl_gazebo)/launch/sxl_navigation_base.launch">
+            <arg name="merge_lasers" default="$(arg merge_lasers)"/>
+            <arg name="launch_gmapping" default="$(arg launch_gmapping)"/>
+            <arg name="launch_move_base" default="$(arg launch_move_base)"/>
+            <arg name="launch_amcl_and_mapserver" default="$(arg launch_amcl_and_mapserver)"/>
         </include>
-        <!-- imu_complementary_filter-->
-        <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
-            <remap from="imu/mag" to="mavros/imu/mag"/>
-            <param name="fixed_frame" value="$(arg prefix)imu_link"/>
-            <param name="publish_tf" value="false"/>
-            <param name="publish_debug_topics" value="true"/>
-            <param name="do_bias_estimation" value="false"/>
-            <param name="do_adaptive_gain" value="true"/>
-            <param name="use_mag" value="false"/>
-            <param name="gain_acc" value="0.005"/>
-            <param name="gain_mag" value="0.001"/>
-        </node>
 
 
-
-        <!-- 后面都是先if判断，是否仿真统一在一个文件夹里 -->
-        <!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-		<include if="$(arg launch_robot_ekf_localization)" file="$(find summit_xl_localization)/launch/robot_localization_$(arg robot_ekf_localization_mode).launch">
-			<arg name="prefix" value="$(arg prefix)"/>
-		</include>
-
-        <!-- use static_transform_publisher to define map->odom transform    -->
-		<!-- only use if you aren´t using a localization algorithm like amcl -->
-		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
-
-        <!-- pad -->
-        <include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+        <!-- \\\\\\\\\\\\\\\\\other\\\\\\\\\\\\\ -->
+        <!-- start summit_xl_pad nodes -->
+        <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+            <arg name="pad_model" value="$(arg pad_model)"/>
+        </include>
 
         <!-- base_hw_sim -->
         <include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
@@ -127,50 +90,8 @@
         </group>
 
 
-
-
-        <!-- amcl and map server base-->
-        <include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/map_server.launch">
-            <arg name="prefix" value="$(arg prefix)"/>
-            <arg name="map_file" value="$(arg map_file)"/>
-        </include>
-        <include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/amcl.launch">
-            <arg name="prefix" value="$(arg prefix)"/>
-            <arg if="$(arg omni_drive)" name="odom_model_type" value="omni"/>
-            <arg unless="$(arg omni_drive)" name="odom_model_type" value="diff"/>
-            <arg name="x_init_pose" value="$(arg x_init_pose)"/>
-            <arg name="y_init_pose" value="$(arg y_init_pose)"/>
-            <arg name="z_init_pose" value="$(arg z_init_pose)"/>
-        </include>
-
-        <!-- move base -->
-        <include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
-            <arg name="prefix" value="$(arg prefix)"/>
-            <arg name="local_planner" value="$(arg movebase_local_planner)"/>
-            <arg if="$(arg omni_drive)" name="differential_robot" value="false"/>
-            <arg unless="$(arg omni_drive)" name="differential_robot" value="true"/>
-        </include>
-        
-        <!-- 使用自己的导航 -->
-         <include  if="$(arg launch_slam_and_navigation)" file ="$(find tv_navigation)/launch/sxl_navigation.launch">
-            <arg name="model" value="$(arg model)"/>
-            <arg name ="perRviz_open" value="false"/>
-            <arg name ="slam_methods" value="$(arg slam_methods)"/>
-        </include >
-
-        <!-- gmapping -->
-        <include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
-            <arg name="prefix" value="$(arg prefix)"/>
-        </include>
-
-        <!-- merge lasers -->
-        <include if="$(arg merge_lasers)" file="$(find summit_xl_bringup)/launch/merge_laser.launch">
-            <arg name="laserscan_topics" value="$(arg merge_laser_topics)"/>
-            <arg name="prefix" value="$(arg prefix)"/>
-        </include>
-
         <!-- MoveGroup Moveit! -->
-        <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
+        <include if="$(arg launch_moveit)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
                 <!--arg name="sim" value="true"/-->
         </include>
 

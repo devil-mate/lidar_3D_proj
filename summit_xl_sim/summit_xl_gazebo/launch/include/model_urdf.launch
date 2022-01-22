@@ -3,7 +3,9 @@
     <arg name="id_robot" default="robot"/>
     <arg name="prefix" default="$(arg id_robot)_"/>
 
-	<arg name="xacro_robot" default="summit_xl_std.urdf.xacro"/>
+	<!-- <arg name="xacro_robot" default="sxl_std_3d.urdf.xacro"/> -->
+	<!-- <arg name="xacro_robot" default="sxl_std_stereo.urdf.xacro"/> -->
+	<arg name="xacro_robot" default="sxl_std.urdf.xacro"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="omni_drive" default="false"/>
 	<arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
