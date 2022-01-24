@@ -11,6 +11,8 @@
     <arg name="launchSim" default="true"/>
     <arg name="prefix" default="robot_"/> <!--frame prefix-->
     <arg name="config_prefix" default="sxl"/> <!--config prefix-->
+    <arg name="launch_DebugNode" default="false"/>
+    <arg name= "debug_config" default="$(find debug_pkg)/config/params.yaml"/>
 
     <!-- 仿真参数更改 -->
     <param name="use_sim_time" value="true" />
@@ -37,11 +39,6 @@
     <arg name="imu_frame" default="$(arg prefix)imu_link"/>
     <arg name="imuFilter_fixed_frame" default="$(arg prefix)imu_link"/>
     
-
-
-
-
-
 
     <group ns="$(arg groupNameSpace)">
 
@@ -95,14 +92,14 @@
             <arg name="map_frame" value="$(arg map_frame)"/>
 
         </include >
-        <!-- rviz 单独launch启动 -->
-        <!-- <group if ="$(arg cmdGUI)">
-            <include file="$(find tv_gui)/launch/tv_gui.launch"/>
-        </group>
-        <include if="$(arg launchRviz)" file="$(find tv_task)/launch/tv_rviz.launch">
-            <arg name="groupNameSpace" value="$(arg groupNameSpace)"/>
-            <arg name="rvizConfig" value="$(arg rvizConfig)"/>
-        </include> -->
+    
+        <include if="$(arg launch_DebugNode)" file="$(find debug_pkg)/launch/debug_node.launch">
+            <arg name="base_frame" value="$(arg base_frame)"/>  
+            <arg name="odom_frame" value="$(arg odom_frame)"/> 
+            <arg name="map_frame" value="$(arg map_frame)"/>
+            
+            <arg name= "debug_config" value="$(arg debug_config )"/>
+        </include>
     </group>
 
 

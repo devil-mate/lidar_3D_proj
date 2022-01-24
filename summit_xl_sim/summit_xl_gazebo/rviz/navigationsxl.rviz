@@ -27,8 +27,8 @@ Panels:
         - /Odometry_filtered1/Covariance1
         - /Odometry_filtered1/Covariance1/Position1
         - /Odometry_filtered1/Covariance1/Orientation1
-        - /Odometry1
-        - /Odometry1/Shape1
+        - /Odometry_gps1
+        - /Odometry_gps1/Shape1
       Splitter Ratio: 0.47826087474823
     Tree Height: 434
   - Class: rviz/Selection
@@ -304,7 +304,7 @@ Visualization Manager:
           Topic: /robot/move_base/TebLocalPlannerROS/local_plan
           Unreliable: false
           Value: true
-      Enabled: true
+      Enabled: false
       Name: GlobalMap
     - Class: rviz/Group
       Displays:
@@ -779,7 +779,7 @@ Visualization Manager:
         Value: true
       Enabled: true
       Keep: 100
-      Name: Odometry
+      Name: Odometry_gps
       Position Tolerance: 0.10000000149011612
       Shape:
         Alpha: 1
@@ -822,25 +822,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 23.319820404052734
+      Distance: 121.51451110839844
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -8.679023742675781
-        Y: -18.798620223999023
-        Z: 2.0381958165671676e-5
+        X: -67.81541442871094
+        Y: -2.8358964920043945
+        Z: -1.2678203347604722e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Pitch: 1.5547964572906494
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 4.618579864501953
+      Yaw: 3.083578109741211
     Saved: ~
 Window Geometry:
   Displays:
