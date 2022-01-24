@@ -1,0 +1,38 @@
+footprint: [[0.375, -0.34], [0.375, 0.34], [-0.375,0.34], [-0.375, -0.34]]
+
+publish_frequency: 1.0
+
+# static_map: false
+# map_type: costmap
+
+inflation_layer:
+  inflation_radius: 0.65
+  cost_scaling_factor: 2.0
+
+obstacle_laser_layer:
+  obstacle_range: 15.0
+  raytrace_range: 6.5
+  track_unknown_space: true
+  # observation_sources: front_laser rear_laser
+  observation_sources: front_laser
+  front_laser: 
+    data_type: LaserScan
+    topic: $(arg front_scan_topic)
+    marking: true
+    clearing: true
+  # rear_laser: 
+  #   data_type: LaserScan
+  #   topic: $(arg rear_scan_topic)
+  #   marking: true
+  #   clearing: true
+
+obstacle_camera_layer:
+  obstacle_range: 5.5
+  raytrace_range: 6.5
+  track_unknown_space: true
+  observation_sources: front_rgbd_to_scan
+  front_rgbd_to_scan:
+    data_type: LaserScan
+    topic: $(arg front_rgbd_to_scan_topic)
+    marking: true
+    clearing: true
