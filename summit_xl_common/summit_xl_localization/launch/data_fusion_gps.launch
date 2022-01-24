@@ -30,8 +30,7 @@
    <arg name="gpsodom_topic_odom_in" default="$(arg imuodom_topic_pub)"/>
    <arg name="gpsodom_topic_gps_in" default="odometry/gps"/>
    <arg name="gpsodom_topic_pub" default="odometry/filtered_gpsodom"/>
-   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
-   
+
    <!-- frame name -->
    <arg name="map_frame" default="map"/>
    <arg name="odom_frame" default="odom"/>
@@ -107,6 +106,10 @@
       </node> 
    <!-- GPS -->
       <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+            <param name="odom0" value="$(arg gpsodom_topic_odom_in )"/> 
+            <param name="odom1" value="$(arg gpsodom_topic_gps_in)"/> 
+            <param name="imu0" value="$(arg imu_raw_data)"/>   
+            <!--gps odom pub  -->
             <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
             <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_odom_ekf_params.yaml" command="load" subst_value="true"/>
       </node>

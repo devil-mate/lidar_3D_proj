@@ -72,6 +72,7 @@
 
 
   <!-- data Fusion -->
+  <!-- TODO 不同的融合方式 -->
   <include if="$(arg dataFusion)" file="$(find summit_xl_localization)/launch/data_fusion.launch">
       <arg name="prefix"  value="$(arg prefix)"/> 
       <arg name="config_prefix"  value="$(arg config_prefix)"/> 

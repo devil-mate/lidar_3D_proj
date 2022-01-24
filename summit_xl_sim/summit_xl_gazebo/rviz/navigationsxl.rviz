@@ -11,11 +11,10 @@ Panels:
         - /Global Path A1
         - /GlobalMap1
         - /GlobalMap1/Global costmap A1
-        - /LocalMap1
+        - /GlobalMap1/Global costmap A1/Status1
         - /LocalMap1/Local costmap A1
         - /LocalMap1/dwa_local_planner1
         - /Sensors_laser1
-        - /Sensors_other1
         - /Sensors_other1/Imu_raw1
         - /Sensors_other1/Imu_raw1/Axes properties1
         - /Sensors_other1/Imu_raw1/Acceleration properties1
@@ -24,11 +23,12 @@ Panels:
         - /Sensors_other1/Imu_filter1/Acceleration properties1
         - /Sensors_other1/PointCloud21
         - /RobotModel1/Links1
+        - /Odometry_filtered1
+        - /Odometry_filtered1/Covariance1
+        - /Odometry_filtered1/Covariance1/Position1
+        - /Odometry_filtered1/Covariance1/Orientation1
         - /Odometry1
-        - /Odometry1/Covariance1
-        - /Odometry1/Covariance1/Position1
-        - /Odometry1/Covariance1/Orientation1
-        - /Odometry2
+        - /Odometry1/Shape1
       Splitter Ratio: 0.47826087474823
     Tree Height: 434
   - Class: rviz/Selection
@@ -49,7 +49,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Rear LaserScan A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
     Topic: /robot/robotnik_base_control/cmd_v
@@ -177,6 +177,8 @@ Visualization Manager:
           Value: true
         robot_odom:
           Value: true
+        utm:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -217,6 +219,8 @@ Visualization Manager:
                   {}
                 robot_imu_link:
                   {}
+            utm:
+              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -246,7 +250,7 @@ Visualization Manager:
       Displays:
         - Alpha: 0.699999988079071
           Class: rviz/Map
-          Color Scheme: map
+          Color Scheme: costmap
           Draw Behind: false
           Enabled: true
           Name: Global costmap A
@@ -707,7 +711,7 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: false
-    - Angle Tolerance: 0.009999999776482582
+    - Angle Tolerance: 0.20000000298023224
       Class: rviz/Odometry
       Covariance:
         Orientation:
@@ -719,15 +723,15 @@ Visualization Manager:
           Scale: 1
           Value: true
         Position:
-          Alpha: 1
+          Alpha: 0.6000000238418579
           Color: 204; 51; 204
-          Scale: 0.05000000074505806
+          Scale: 0.10000000149011612
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 10
-      Name: Odometry
-      Position Tolerance: 0.009999999776482582
+      Name: Odometry_filtered
+      Position Tolerance: 0.20000000298023224
       Shape:
         Alpha: 1
         Axes Length: 1
@@ -740,7 +744,22 @@ Visualization Manager:
         Value: Arrow
       Topic: /robot/odometry/filtered_imuodom
       Unreliable: false
-      Value: false
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /robot/move_base_simple/goal
+      Unreliable: false
+      Value: true
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
@@ -758,7 +777,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 100
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -766,15 +785,15 @@ Visualization Manager:
         Alpha: 1
         Axes Length: 1
         Axes Radius: 0.10000000149011612
-        Color: 255; 25; 0
+        Color: 78; 154; 6
         Head Length: 0.30000001192092896
         Head Radius: 0.10000000149011612
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: /robot/robotnik_base_control/odom
+      Topic: /robot/odometry/filtered_gpsodom
       Unreliable: false
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -803,25 +822,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 12.286293029785156
+      Distance: 23.319820404052734
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.8992810249328613
-        Y: -1.8285712003707886
-        Z: 4.311508291721111e-6
+        X: -8.679023742675781
+        Y: -18.798620223999023
+        Z: 2.0381958165671676e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.0347968339920044
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 3.123574733734131
+      Yaw: 4.618579864501953
     Saved: ~
 Window Geometry:
   Displays:
@@ -843,5 +862,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1389
-  X: 285
-  Y: 86
+  X: 91
+  Y: 169

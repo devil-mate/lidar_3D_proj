@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>  
+	
+	<!-- <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/> -->
+  <arg name="prefix" default="robot_"/>
+  <arg name="map_frame" default="map"/>
+  <arg name="odom_frame" default="odom"/>
+  <arg name="base_frame" default="base_link"/>
+  <arg name="world_frame" default="world_frame"/>
+
+  <arg name="gpsodom_topic_imu_in" default="imu"/>
+  <arg name="gpsodom_topic_odom_in" default="odom"/>
+  <arg name="gpsodom_topic_gps_in" default="odometry/gps"/>
+  <arg name="gps_raw" default="gps"/>
+  <arg name="gpsodom_topic_pub" default="odometry/filtered_gpsodom"/>
+
+  <!-- <arg name="global_frame" default="$(arg prefix)map"/> -->
+
+  <arg name="merger_gps" default="false"/>
+  <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
+
+
+  <!-- gps data -->
+  <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+    <remap from="imu/data" to="$(arg gpsodom_topic_imu_in)"/>    
+    <remap from="odometry/filtered" to="$(arg gpsodom_topic_odom_in)"/>    
+    <remap from="gps/fix" to="$(arg gps_raw)"/>   
+    <!-- pub -->
+    <remap from="odometry/gps" to="$(arg gpsodom_topic_gps_in)" /> 
+    <rosparam command="load" file="$(find summit_xl_localization)/config_$(arg config_prefix)/navsat_transform_param.yaml" subst_value="true"/>
+  </node> 
+
+  <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+    <!-- pub -->
+    <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
+    <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
+
+    <!-- <rosparam param="odom0_config">[true, true, true,
+                                    true, true, true,
+                                    true,  true, true,
+                                    true, true, true,
+                                    false, false, false]</rosparam>
+    <rosparam param="odom1_config">[true, true, false,
+                                    false, false, false,
+                                    false, false, false,
+                                    false, false, false,
+                                    false, false, false]</rosparam> -->
+    
+  </node> 
+
+</launch>
