@@ -1,7 +1,7 @@
 <launch>
   <!-- Arguments -->
   <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
-  <arg name="map_file" default="$(find tv_navigation)/maps/blank/blankpic.yaml"/>
+  <arg name="map_file" default="$(find summit_xl_localization)/maps/test/test01.yaml"/>
   <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationtest.rviz" />
   <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationsxl.rviz" /> -->
   <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigation.rviz" /> -->
@@ -10,8 +10,12 @@
   <arg name="move_forward_only" default="false"/>
   <arg name="locateMethod" default="false"/>
   <arg name="dataFusion" default="true"/> 
+  <!-- 定位方式 -->
+  <arg name="use_static_map" default="true"/> 
+  <arg name="launch_amcl" default="true"/> 
   <arg name="launch_vslam" default="false"/> 
-  <arg name="launch_amcl" default="false"/> 
+  <arg name="launch_slam" default="false"/> 
+
   <arg name="cmdGUI" default="false"/>
 
   <arg name="laser_filtered_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC scan_filtered)"/> <!-- laser  for slam movebase -->
@@ -97,17 +101,19 @@
   </include>
   <!-- TODO location  -->
 
-  <group if="$(arg launch_amcl)" >
+  <group if="$(arg use_static_map)" >
       <!-- Map server -->
-      <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
+      <node  pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
         <param name="frame_id"  value="$(arg map_frame)"/>
+        <!-- <param name="frame_id"  value="map_server_frame"/> -->
       </node>
       <!-- AMCL -->
-      <include file="$(find summit_xl_sim_navigation)/launch/amcl.launch">
+      <include if="$(arg launch_amcl)" file="$(find summit_xl_localization)/launch/amcl.launch">
         <arg name="scan_topic" value="$(arg laser_filtered_topic)"/>
         <arg name="base_frame"  value="$(arg base_frame)"/>
         <arg name="odom_frame"  value="$(arg odom_frame)"/> 
         <arg name="map_frame"  value="$(arg map_frame)"/> 
+        <!-- <arg name="map_topic"  value="map"/>  -->
       </include>
   </group>
 
@@ -120,7 +126,7 @@
       <arg name="base_frame"  value="$(arg base_frame)"/>
     </include> -->
   </group>  
-  <group unless="$(arg launch_vslam)" >
+  <group if="$(arg launch_slam)" >
   <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
     <include file="$(find summit_xl_localization)/launch/$(arg config_prefix)_slam_$(arg slam_methods).launch">
       <arg name="slam_scan_topic" value="$(arg laser_filtered_topic)"/>
