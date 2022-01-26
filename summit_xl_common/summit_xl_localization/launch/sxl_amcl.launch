@@ -2,8 +2,7 @@
 <launch>
   
 
-
-  <arg name="prefix" default=""/>
+  <arg name="config_prefix" default=""/>
   
   <arg name="x_init_pose" default="0"/>
   <arg name="y_init_pose" default="0"/>

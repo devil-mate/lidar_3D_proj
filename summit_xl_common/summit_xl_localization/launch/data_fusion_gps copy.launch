@@ -30,14 +30,16 @@
    <arg name="gpsodom_topic_odom_in" default="$(arg imuodom_topic_pub)"/>
    <arg name="gpsodom_topic_gps_in" default="odometry/gps"/>
    <arg name="gpsodom_topic_pub" default="odometry/filtered_gpsodom"/>
-   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
-   
+
    <!-- frame name -->
    <arg name="map_frame" default="map"/>
    <arg name="odom_frame" default="odom"/>
    <arg name="base_frame" default="base_link"/>
    <arg name="world_frame" default="world_frame"/> 
 
+   <!-- <arg name="odom_frame" default="$(arg prefix)odom"/> 
+   
+   <arg name="base_frame" default="$(arg prefix)base_footprint"/> -->
 
    
 
@@ -48,7 +50,7 @@
       <remap from="scan_filtered" to="$(arg laser_filtered_topic)" />
    </node>
 
-  <!-- TODO imu 融合/滤波 有问题 -->
+  <!-- TODO imu 融合/滤波 -->
    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
       <remap from="imu/mag" to="$(arg imu_raw_mag)"/>
       <remap from="imu/data_raw" to="$(arg imu_raw_data)"/>
@@ -79,13 +81,14 @@
     </node> 
 
    
-   <!-- 2. imu_data & odom  -->
-   <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
+<!-- 2. imu_data & odom  -->
+      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
     <node if="$(arg localization_ekf_pose)" pkg="robot_localization" type="ekf_localization_node" name="ekf_imu_odom" clear_params="true" output="screen" >      
       <!-- sub imu/data-->
       <param name="odom0" value="$(arg odom_raw_topic)"/> <!-- previously: /odom -->
       <param name="imu0" value="$(arg imu_raw_data)"/>        <!-- previously: /imu/data --> 
       <!-- <param name="imu0" value="$(arg imuodom_topic_imu_in)"/>    -->
+
       <!-- pub  -->
       <remap from="odometry/filtered" to="$(arg imuodom_topic_pub)" />
       <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/ekf_imu_odom_params.yaml" command="load" subst_value="true"/>
@@ -103,6 +106,10 @@
       </node> 
    <!-- GPS -->
       <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+            <param name="odom0" value="$(arg gpsodom_topic_odom_in )"/> 
+            <param name="odom1" value="$(arg gpsodom_topic_gps_in)"/> 
+            <param name="imu0" value="$(arg imu_raw_data)"/>   
+            <!--gps odom pub  -->
             <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
             <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_odom_ekf_params.yaml" command="load" subst_value="true"/>
       </node>

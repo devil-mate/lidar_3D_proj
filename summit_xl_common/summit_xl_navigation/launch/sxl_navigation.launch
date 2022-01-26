@@ -11,13 +11,13 @@
   <arg name="locateMethod" default="false"/>
   <arg name="dataFusion" default="true"/> 
   <!-- 定位方式 -->
-  <arg name="use_static_map" default="true"/> 
-  <arg name="launch_amcl" default="true"/> 
+  <arg name="use_static_map" default="false"/> 
+  <arg name="launch_amcl" default="false"/> 
   <arg name="launch_vslam" default="false"/> 
-  <arg name="launch_slam" default="false"/> 
+  <arg name="launch_slam" default="true"/> 
+  <!-- 融合 -->
 
   <arg name="cmdGUI" default="false"/>
-
   <arg name="laser_filtered_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC scan_filtered)"/> <!-- laser  for slam movebase -->
   <arg name="slam_methods" default="gmapping" doc="slam type [gmapping, cartographer, hector, karto, frontier_exploration]"/>
   <arg name="configuration_basename" default="turtlebot3_lds_2d.lua"/>
@@ -58,7 +58,7 @@
     
 <!-- 参数更改 -->
     <arg name="laser_raw_topic" default="front_laser/scan"/> 
-    <arg name="imu_raw_data" default="handsfree/imu" />
+    <arg name="imu_raw_data" default="imu" />
     <!-- <arg name="imu_raw_data" default="imu/data_raw" /> -->
     <arg name="imu_raw_mag" default="mavros/imu/mag" /> <!--default false-->
     <arg name="odom_raw_topic" default="movePlatform_node/odom" />
@@ -96,6 +96,7 @@
       <arg name="laser_filtered_topic" value="$(arg laser_filtered_topic)"/>
       <arg name="base_frame"  value="$(arg base_frame)"/>
       <arg name="odom_frame"  value="$(arg odom_frame)"/> 
+      <arg name="map_frame"  value="$(arg map_frame)"/> 
       <arg name="world_frame"  value="$(arg world_frame)"/> 
 
   </include>
@@ -108,11 +109,12 @@
         <!-- <param name="frame_id"  value="map_server_frame"/> -->
       </node>
       <!-- AMCL -->
-      <include if="$(arg launch_amcl)" file="$(find summit_xl_localization)/launch/amcl.launch">
+      <include if="$(arg launch_amcl)" file="$(find summit_xl_localization)/launch/sxl_amcl.launch">
         <arg name="scan_topic" value="$(arg laser_filtered_topic)"/>
         <arg name="base_frame"  value="$(arg base_frame)"/>
         <arg name="odom_frame"  value="$(arg odom_frame)"/> 
         <arg name="map_frame"  value="$(arg map_frame)"/> 
+        <arg name="config_prefix"  value="$(arg config_prefix)"/> 
         <!-- <arg name="map_topic"  value="map"/>  -->
       </include>
   </group>
