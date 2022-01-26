@@ -6,8 +6,9 @@
    <arg name="launch_pose_ekf" default="false"/>
    <arg name="localization_ekf_pose" default="true"/> 
    <arg name="use_gps" default="true"/> <!--gps（-odom） localization -->
-
+   <!-- gps 融合到里程计 -->
    <arg name="gps_odom" default="true"/>
+   <!-- gps融合slam -->
    <arg name="gps_world" default="true"/>
    <arg name="imuodom_pub_tf" default="false"/>
    <!-- <arg name="odom_filter_topic" default="odom_topic"/> -->
@@ -79,7 +80,7 @@
 
    <!-- 1. imu_data & odom -->
    <!--发布 odom-baselink tf  -->
-    <node if="$(arg launch_pose_ekf)" pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
+    L<node if="$(arg launch_pose_ekf)" pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
         <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/pose_ekf_params.yaml" command="load" subst_value="true"/>
         <!-- <remap from="imu_data" to="$(arg imuodom_topic_imu_in)"/> -->
         <remap from="imu_data" to="$(arg imu_raw_data)"/>  <!--TODO IMU融合/滤波-->
@@ -120,6 +121,7 @@
             <remap from="odometry/filtered" to="$(arg gps_world_pub)" />
             <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
       </node>
+      
 
    </group>
 
