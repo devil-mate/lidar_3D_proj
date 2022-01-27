@@ -9,7 +9,7 @@
    <!-- gps 融合到里程计 -->
    <arg name="gps_odom" default="true"/>
    <!-- gps融合slam -->
-   <arg name="gps_world" default="true"/>
+   <arg name="gps_world" default="false"/>
    <arg name="imuodom_pub_tf" default="false"/>
    <!-- <arg name="odom_filter_topic" default="odom_topic"/> -->
    
@@ -34,7 +34,7 @@
    <arg name="gpsodom_topic_odom_in" default="$(arg imuodom_topic_pub)"/>
    <arg name="gpsodom_topic_gps_in" default="odometry/gps"/>
    <arg name="gpsodom_topic_pub" default="odometry/filtered_gpsodom"/>
-   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
+   <arg name="wait_for_datum" default="true" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
    <!-- gps world -->
    <arg name="gps_world_pub" default="odometry/filtered_gpsworld"/>
    <arg name="slam_odom_topic" default="slam_gmapping/odom"/>
@@ -104,7 +104,7 @@
    
   <!-- TODO if merge gps , 三个一起融合; 保留串级融合用于精度比较 -->
    <group if ="$(arg use_gps)">
-      <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+      <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="log">
          <remap from="imu/data" to="$(arg imu_raw_data)"/>    
          <remap from="odometry/filtered" to="$(arg gpsodom_topic_odom_in)"/>    
          <remap from="gps/fix" to="$(arg gps_raw)"/>   
