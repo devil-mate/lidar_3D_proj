@@ -1,0 +1,14 @@
+<launch>
+  <!-- Arguments -->
+
+  <arg name="rvizConfig" default="$(find summit_xl_gazebo)/rviz/navigationsxl.rviz" />
+  <arg name="groupNameSpace" default="robot"/>
+  <!-- rviz -->
+  <group ns="$(arg groupNameSpace)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(arg rvizConfig)"/>
+    <!-- <include file ="$(find tv_gui)/launch/tv_gui.launch">
+    </include> -->
+  </group>
+
+</launch>
