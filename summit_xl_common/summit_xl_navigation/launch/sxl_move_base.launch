@@ -1,31 +1,37 @@
 <launch>
   <!-- Arguments -->
-  <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
-  <arg name="cmd_vel_topic" default="move_base/cmd_vel" />
-  <!-- <arg name="odom_topic" default="odom" /> -->
-  <arg name="odom_topic" default="robotnik_base_control/odom"/>
-  <arg name="odom" default="/odom"/>
+  <!-- <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/> -->
+  
+  <arg name="odom_topic" default="odom" />
   <arg name="move_forward_only" default="false"/>
-  <arg name="global_frame" default="robot_map"/>
-  <arg name="odom_frame" default="robot_odom"/>
-  <arg name="base_frame" default="robot_base_footprint"/>
-  <arg name="front_scan_topic" default="$(optenv ROBOT_NAVIGATION_FRONT_2D_SCAN front_laser/scan)"/>
-  <arg name="rear_scan_topic" default="$(optenv ROBOT_NAVIGATION_REAR_2D_SCAN rear_laser/scan)"/>
+  <arg name="config_prefix" default=""/>
 
+  <arg name="laser_raw_topic" default="laser/scan)"/>
+  <arg name="laser_filtered_topic" default="scan_filtered)"/>
+  <arg name="front_scan_topic" default="$(arg laser_filtered_topic)"/>
+  <arg name="rear_scan_topic" default="$(arg laser_filtered_topic)"/>
+  <arg name="front_rgbd_to_scan_topic" default="rgbd_scan"/>
+ 
+  <arg name="cmd_vel_out" default="/cmd_vel" />
+  <arg name="world_frame" default="map"/>
+  <arg name="base_frame" default="base_link"/>
+  <arg name="odom_frame" default="odom"/>
+  <arg name="laser_frame" default="laser_link"/>
+
+  
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find summit_xl_navigation)/config2/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
-    <rosparam file="$(find summit_xl_navigation)/config2/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
-    <rosparam file="$(find summit_xl_navigation)/config2/local_costmap_params.yaml" command="load" subst_value="true"/>
-    <rosparam file="$(find summit_xl_navigation)/config2/global_costmap_params.yaml" command="load" subst_value="true"/>
-    <rosparam file="$(find summit_xl_navigation)/config2/move_base_params.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/config2/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find summit_xl_navigation)/config2/dwa_local_planner_params_burger.yaml" command="load" />
-    <!-- <rosparam file="$(find summit_xl_navigation)/config2/teb_local_planner_diff_params.yaml" command="load"  subst_value="true"/> -->
-    
-    <!-- <rosparam file="$(find tv_navigation)/param/teb_local_planner_diff_params.yaml" command="load" /> -->
-    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
-    <!-- <remap from="odom" to="$(arg odom)"/> -->
-    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true" />
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true" />
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/global_costmap_params.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/local_costmap_params.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/move_base_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/global_planner_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/dwa_local_planner_params.yaml" command="load" />
+    <!-- <rosparam file="$(find summit_xl_navigation)/config_$(arg config_prefix)/teb_local_planner_diff_params.yaml" command="load" subst_value="true"/> -->
+    <remap from="cmd_vel" to="move_base/cmd_vel"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+
   </node>
 </launch>

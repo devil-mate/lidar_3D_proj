@@ -1,0 +1,20 @@
+# debug:
+#   base_frame:  $(arg base_frame)
+#   odom_frame:  $(arg odom_frame)
+#   map_frame: $(arg map_frame)
+
+#   odom0: $(arg odomRaw)  # nav_msgs::Odometry
+#   odom1: $(arg odomRaw)
+#   odom2: $(arg $(arg odomImu))
+#   odom3: $(arg $(arg odomImu))
+#   odom4: $(arg $(arg odomImu))
+
+#   StatmedOdom0: $(arg odomRaw) # poseStatmed geometry_msgs::PoseWithCovarianceStamped
+#   StatmedOdom1: $(arg odomRaw) 
+
+#   imu0: $(arg imuRaw)
+#   imu1: $(arg imuFilter)
+
+#   sendFreq: 10
+#   poseStamped: false
+#   odomTfPose: true

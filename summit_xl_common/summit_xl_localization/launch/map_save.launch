@@ -1,0 +1,11 @@
+<launch>
+
+
+   <arg name="mapFileName" default="$(find summit_xl_localization)/maps/test/test01"/>
+   <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(arg mapFileName)"> 
+      <remap from="map" to="/robot/map" />
+   </node> 
+
+
+  
+</launch>

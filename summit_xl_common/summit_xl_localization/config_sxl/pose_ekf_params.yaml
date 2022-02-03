@@ -1,0 +1,9 @@
+  output_frame: $(arg odom_frame) 
+  base_footprint_frame: $(arg base_frame)
+  freq: 30.0
+  sensor_timeout: 1.0
+  odom_used: true 
+  imu_used: true
+  vo_used: false
+  debug: false
+  self_diagnose: false

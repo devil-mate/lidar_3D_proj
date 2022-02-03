@@ -1,0 +1,7 @@
+image: /home/zj/catkin_ws/src/lidar_3D_proj/summit_xl_common/summit_xl_localization/maps/test/test01.pgm
+resolution: 0.200000
+origin: [-77.600000, -45.600000, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+
