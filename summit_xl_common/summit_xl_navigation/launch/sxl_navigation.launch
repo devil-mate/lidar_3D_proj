@@ -121,7 +121,7 @@
   </group>
 
   <group if="$(arg launch_vslam)" >
-    <include file="$(find summit_xl_localization)/launch/vslam_vins.launch">
+    <include file="$(find sxl_vslam)/launch/vslam_vins.launch">
       <arg name="config_prefix"  value="$(arg config_prefix)"/> 
       <!-- <arg name="img1_in" value="$(arg img1_raw)"/>
       <arg name="img2_in" value="$(arg img2_raw)"/>
