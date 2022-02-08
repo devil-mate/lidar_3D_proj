@@ -1,0 +1,21 @@
+<launch>
+    <arg name="img1_in" default="cam0/image_raw"/>
+    <arg name="img2_in" default="cam1/image_raw"/>
+    <arg name="imu_in" default="cam1/image_raw"/>
+    <arg name="vins_out_odom" default="vins_estimator/odometry"/>
+    <arg name="config_prefix"  default="sxl"/> 
+    <arg name="groupNameSpace" default="robot"/>
+    <!-- <arg name="vins_out_odom" default="vins/odometry"/> -->
+    <!-- <arg  name ="configfile" default="/home/zj/catkin_ws/src/rosPack_amend/VINS-Fusion-master/config/euroc/euroc_stereo_imu_config.yaml" /> -->
+    <group ns="$(arg groupNameSpace)">
+    <!-- <arg  name ="configfile" default="$(find summit_xl_localization)/config_$(arg config_prefix)/euroc_stereo_config.yaml" /> -->
+        <arg  name ="configfile" default="$(find sxl_vslam)/config_$(arg config_prefix)/euroc_stereo_imu_config.yaml" />
+        <!-- TODO subte- value -->
+        <node pkg= "vins" name="vins_estimator" type="vins_node" output="screen" args ="$(arg configfile)" >
+            <!-- <remap from="odometry" to="$(arg vins_out_odom)" /> -->
+        </node>
+        <node pkg= "loop_fusion" name="loop_fusion_node" type="loop_fusion_node" output="screen" args="$(arg configfile)" >
+        </node>
+    </group>
+
+</launch>

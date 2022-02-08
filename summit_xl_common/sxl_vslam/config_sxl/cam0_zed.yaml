@@ -1,0 +1,18 @@
+%YAML:1.0
+---
+model_type: MEI
+camera_name: robot_front_zed_camera/left
+image_width: 640
+image_height: 480
+mirror_parameters:
+   xi: 3.6313355285286337e+00
+distortion_parameters:
+   k1: -0.03053900898634834
+   k2: 0.01678740905478507
+   p1: 0.004563368063536544
+   p2: -0.005362693939928225
+projection_parameters:
+   gamma1: 432.2469110399018
+   gamma2: 545.7189695408734
+   u0: 317.6568491556908
+   v0: 280.5453418485135

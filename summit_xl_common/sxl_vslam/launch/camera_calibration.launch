@@ -1,0 +1,15 @@
+<launch>
+    <arg name="img1_in" default="cam0/image_raw"/>
+    <arg name="img2_in" default="cam1/image_raw"/>
+    <arg name="imu_in" default="cam1/image_raw"/>
+    <arg name="vins_out_odom" default="vins_estimator/odometry"/>
+    <arg name="config_prefix"  default="sxl"/> 
+    <arg name="calibration_arg" default="--size 8x6 --square 0.108 right:=robot_front_zed_camera/right/image_raw left:=robot_front_zed_camera/left/image_raw left_camera:=robot_front_zed_camera/left right_camera:=robot_front_zed_camera/right"/>
+    <arg name="groupNameSpace" default="robot"/>
+
+    <group ns="$(arg groupNameSpace)">
+        <node pkg= "camera_calibration" name="camera_calibra" type="cameracalibrator.py" args="$(arg calibration_arg)" output="screen" >
+        </node>
+    </group>
+
+</launch>

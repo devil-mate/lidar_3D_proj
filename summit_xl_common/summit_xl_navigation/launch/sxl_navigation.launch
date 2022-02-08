@@ -13,7 +13,7 @@
   <!-- 定位方式 -->
   <arg name="use_static_map" default="false"/> 
   <arg name="launch_amcl" default="false"/> 
-  <arg name="launch_vslam" default="false"/> 
+  <arg name="launch_vslam" default="true"/> 
   <arg name="launch_slam" default="true"/> 
   <!-- 融合 -->
 
@@ -63,7 +63,8 @@
     <arg name="imu_raw_mag" default="mavros/imu/mag" /> <!--default false-->
     <arg name="odom_raw_topic" default="movePlatform_node/odom" />
     <!-- <arg name="odom_raw_topic" default="robotnik_base_control/odom" /> -->
-    <arg name="img_raw" default="robot_front_ptz_camera/image_raw"/> 
+    <arg name="img1_raw" default="robot_front_ptz_camera/image_raw"/> 
+    <arg name="img2_raw" default="robot_front_ptz_camera/image_raw"/> 
     <arg name="gps_raw" default="gps/NavSatFix"/>
     <arg name="cmd_vel_out" default="robotnik_base_control/cmd_vel"/>
 
@@ -120,13 +121,15 @@
   </group>
 
   <group if="$(arg launch_vslam)" >
-    <!-- <include file="$(find tv_slam)/launch/tv_vslam_vins.launch">
+    <include file="$(find sxl_vslam)/launch/vslam_vins.launch">
       <arg name="config_prefix"  value="$(arg config_prefix)"/> 
-      <arg name="img_raw" value="$(arg img_raw)"/>
-      <arg name="odom_frame"  value="$(arg odom_frame)"/> 
+      <!-- <arg name="img1_in" value="$(arg img1_raw)"/>
+      <arg name="img2_in" value="$(arg img2_raw)"/>
+      <arg name="imu_in" value="$(arg imu_raw_data)"/> -->
+      <!-- <arg name="odom_frame"  value="$(arg odom_frame)"/> 
       <arg name="map_frame"  value="$(arg map_frame)"/> 
-      <arg name="base_frame"  value="$(arg base_frame)"/>
-    </include> -->
+      <arg name="base_frame"  value="$(arg base_frame)"/> -->
+    </include>
   </group>  
   <group if="$(arg launch_slam)" >
   <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->

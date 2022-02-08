@@ -21,7 +21,8 @@
     <arg name="imu_raw_data" default="imu/data_raw" />
     <arg name="imu_raw_mag" default="handsfree/mag" /> <!--default false-->
     <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
-    <arg name="img1_raw" default="robot_front_ptz_camera/image_raw"/> 
+    <arg name="img1_raw" default="robot_front_zed_camera/left/image_raw"/> 
+    <arg name="img2_raw" default="robot_front_zed_camera/right/image_raw"/> 
     <arg name="gps_raw" default="gps/NavSatFix"/>
     <arg name="cmd_vel_out" default="robotnik_base_control/cmd_vel"/>
     
