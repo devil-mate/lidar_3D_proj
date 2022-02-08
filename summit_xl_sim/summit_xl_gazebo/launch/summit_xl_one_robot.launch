@@ -18,9 +18,9 @@
     <arg name="movebase_local_planner" default="teb"/>
     <!-- odom, complete (including gps)-->
     <arg name="omni_drive" default="false"/>
-    <arg name="ros_planar_move_plugin" default="false"/>
+    <arg name="ros_planar_move_plugin" default="true"/>
     <arg name="launch_pad" default="false"/>
-    <arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
+    <arg name="use_gpu_for_simulation" default="true"/><!-- use_gpu_for_simulation -->
     <arg name="has_pantilt_camera" default="false"/>
     <!-- arm robot -->
     <arg name="launch_arm" default="false"/>
@@ -62,7 +62,9 @@
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
             <remap from="/joint_states" to="joint_states" />
         </node>
-
+        <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
+        <node name="joint_state_controller_spawner" pkg="controller_manager" type="spawner" output="screen" args="joint_state_controller" /> 
+            <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>  -->
         <!-- Spawner model into gazebo -->
         <node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-x $(arg x_init_pose)
@@ -86,7 +88,7 @@
                 -model $(arg id_robot)" />
 
         <!-- start summit_xl_control nodes -->
-        <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
+        <!-- <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
             <arg name="prefix" value="$(arg prefix)"/>
             <arg name="sim" value="true"/>
@@ -107,42 +109,40 @@
         </include>
 
         <!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-		<include if="$(arg launch_robot_ekf_localization)" file="$(find summit_xl_localization)/launch/robot_localization_$(arg robot_ekf_localization_mode).launch">
+		<!-- <include if="$(arg launch_robot_ekf_localization)" file="$(find summit_xl_localization)/launch/robot_localization_$(arg robot_ekf_localization_mode).launch">
 			<arg name="prefix" value="$(arg prefix)"/>
-		</include>
+		</include> -->
 
         <!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
 
-        <!-- start summit_xl_pad nodes -->
-        <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
-        <arg name="pad_model" value="$(arg pad_model)"/>
-        </include>
+        <!-- pad -->
+        <!-- <include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/> -->
 
         <!-- base_hw_sim -->
-        <include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
+        <!-- <include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
             <arg name="prefix" value="$(arg prefix)"/>
-        </include>
+        </include> -->
 
-        <group if="$(arg launch_battery_estimator)">
+        <!-- <group if="$(arg launch_battery_estimator)"> -->
             <!-- start dock_manager node -->
-            <include file="$(find charge_manager)/launch/charge_manager.launch">
+            <!-- <include file="$(find charge_manager)/launch/charge_manager.launch">
                 <arg name="docker_mode" value="manual_sw"/>
                 <arg name="inverted_contact_relay_input" value="false"/>
                 <arg name="contact_relay_input_number" value="2"/>
                 <arg name="charger_relay_output_number" value="1"/>
-            </include>
+            </include> -->
 
             <!-- start battery_estimation node -->
-            <include file="$(find battery_estimation)/launch/table_battery.launch">
+            <!-- <include file="$(find battery_estimation)/launch/table_battery.launch">
                 <arg name="battery_voltage" value="48"/>
                 <arg name="read_voltage_from_analog_input" value="true"/>
                 <arg name="voltage_analog_input_number" value="1" />
                 <arg name="current_analog_input_number" value="2" />
-            </include>
+            </include> -->
 
-        </group>
+        <!-- </group> -->
 
         <!-- imu_complementary_filter-->
         <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
@@ -155,11 +155,11 @@
             <param name="use_mag" value="false"/>
             <param name="gain_acc" value="0.005"/>
             <param name="gain_mag" value="0.001"/>
-        </node>
+        </node> -->
 
 
         <!-- amcl and map server base-->
-        <include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/map_server.launch">
+        <!-- <include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/map_server.launch">
             <arg name="prefix" value="$(arg prefix)"/>
             <arg name="map_file" value="$(arg map_file)"/>
         </include>
@@ -170,31 +170,35 @@
             <arg name="x_init_pose" value="$(arg x_init_pose)"/>
             <arg name="y_init_pose" value="$(arg y_init_pose)"/>
             <arg name="z_init_pose" value="$(arg z_init_pose)"/>
-        </include>
+        </include> -->
 
         <!-- move base -->
-        <include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
+        <!-- <include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
             <arg name="prefix" value="$(arg prefix)"/>
             <arg name="local_planner" value="$(arg movebase_local_planner)"/>
             <arg if="$(arg omni_drive)" name="differential_robot" value="false"/>
             <arg unless="$(arg omni_drive)" name="differential_robot" value="true"/>
-        </include>
+        </include> -->
 
         <!-- gmapping -->
-        <include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
+        <!-- <include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
             <arg name="prefix" value="$(arg prefix)"/>
-        </include>
+        </include> -->
 
         <!-- merge lasers -->
-        <include if="$(arg merge_lasers)" file="$(find summit_xl_bringup)/launch/merge_laser.launch">
+        <!-- <include if="$(arg merge_lasers)" file="$(find summit_xl_bringup)/launch/merge_laser.launch">
             <arg name="laserscan_topics" value="$(arg merge_laser_topics)"/>
             <arg name="prefix" value="$(arg prefix)"/>
-        </include>
+        </include> -->
 
         <!-- MoveGroup Moveit! -->
+<<<<<<< HEAD
         <include if="$(arg launch_moveit)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
+=======
+        <!-- <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch"> -->
+>>>>>>> branch_temp
                 <!--arg name="sim" value="true"/-->
-        </include>
+        <!-- </include> -->
 
     </group>
 <!--
@@ -214,21 +218,20 @@
 
         <include file="$(find summit_xl_robot_local_control)/launch/robot_local_control.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
-        </include>
+        </include> -->
 
 
         <include if="$(arg launch_rlc_rostful)" file="$(find summit_xl_robot_local_control)/launch/rostful_server.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
             <arg name="host" value="$(arg rlc_rostful_host)"/>
             <arg name="port" value="$(arg rlc_rostful_port)"/>
-        </include>
+        </include> -->
 
     </group>
 -->
     <include if="$(arg launch_hmi)" file="$(find robotnik_hmi)/launch/robotnik_hmi.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="launch_system_monitor" value="false"/>
-    </include>
-
+    </include> -->
 
 </launch>

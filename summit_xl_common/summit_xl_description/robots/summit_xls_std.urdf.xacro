@@ -59,6 +59,7 @@
 	<xacro:property name="hq" value="true" />
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
+	<!-- <xacro:arg name="prefix" default="robot_"/> -->
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="gpu" default="false"/>
 

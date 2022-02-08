@@ -13,7 +13,7 @@
 
 	<!-- Import summit XL wheels -->
 	<xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
-  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" />
+  <!-- <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" /> -->
 
 
 	<!-- Import all available sensors -->
@@ -30,9 +30,10 @@
 	<xacro:property name="hq" value="true" />
 
 	<xacro:arg name="prefix" default="summit_xl_"/>
+	<!-- <xacro:arg name="prefix" default="robot_"/> -->
 	<xacro:arg name="ros_planar_move_plugin" default="false"/>
 	<xacro:arg name="omni_wheels" default="false"/>
-	<xacro:arg name="gpu" default="false"/>
+	<xacro:arg name="gpu" default="true"/>
 
 
 
