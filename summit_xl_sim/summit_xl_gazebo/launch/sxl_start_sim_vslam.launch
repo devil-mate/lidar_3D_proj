@@ -8,11 +8,16 @@
     <!-- <arg name="communicateRos" default="false"/> -->
     
     <arg name="launchRviz" default="false"/>
-    <arg name="launchSim" default="true"/>
+    
     <arg name="prefix" default="robot_"/> <!--frame prefix-->
     <arg name="config_prefix" default="sxl"/> <!--config prefix-->
     <arg name="launch_DebugNode" default="false"/>
     <arg name= "debug_config" default="$(find debug_pkg)/config/params.yaml"/>
+
+    <arg name="launchSim" default="true"/>
+    <arg name="launch_amcl" default="false"/> 
+    <arg name="launch_vslam" default="false"/> 
+    <arg name="launch_slam" default="true"/> 
 
     <!-- 仿真参数更改 -->
     <param name="use_sim_time" value="true" />
@@ -93,6 +98,9 @@
             <arg name="base_frame" value="$(arg base_frame)"/>
             <arg name="odom_frame" value="$(arg odom_frame)"/>
             <arg name="map_frame" value="$(arg map_frame)"/>
+
+            <arg name="launch_slam" value="$(arg launch_slam)"/>
+            <arg name="launch_vslam" value="$(arg launch_vslam)"/>
 
         </include >
     

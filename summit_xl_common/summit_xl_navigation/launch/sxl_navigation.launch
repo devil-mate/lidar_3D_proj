@@ -13,7 +13,7 @@
   <!-- 定位方式 -->
   <arg name="use_static_map" default="false"/> 
   <arg name="launch_amcl" default="false"/> 
-  <arg name="launch_vslam" default="true"/> 
+  <arg name="launch_vslam" default="false"/> 
   <arg name="launch_slam" default="true"/> 
   <!-- 融合 -->
 
