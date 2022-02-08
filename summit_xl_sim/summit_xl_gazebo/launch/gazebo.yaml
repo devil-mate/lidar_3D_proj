@@ -2,26 +2,26 @@
   gazebo_ros_control:
     pid_gains:
       robot_front_right_wheel_joint:
-          p: 100.0
+          p: 40.0
           i: 0.01
-          d: 10.0
+          d: 0.0
       robot_front_left_wheel_joint:
-          p: 100.0
+          p: 40.0
           i: 0.01
-          d: 10.0
+          d: 0.0
       robot_back_left_wheel_joint:
-          p: 100.0
+          p: 40.0
           i: 0.01
-          d: 10.0
+          d: 0.0
       robot_back_right_wheel_joint:
-          p: 100.0
+          p: 40.0
           i: 0.01
-          d: 10.0
+          d: 0.0
       robot_front_ptz_camera_pan_joint:
-          p: 100.0
+          p: 20.0
           i: 0.01
-          d: 10.0
+          d: 0.0
       robot_front_ptz_camera_tilt_joint:
-          p: 100.0
+          p: 20.0
           i: 0.01
-          d: 10.0
+          d: 0.0
