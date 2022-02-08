@@ -11,6 +11,7 @@
 	  <xacro:property name="wheel_radius" value="0.11"/>
 
 	  <!-- BASE FOOTPRINT -->
+	  <!-- prefix 参数 就是: robot_ -->
 	  <xacro:if value="${publish_bf}">
 		<link name="${prefix}base_footprint">
 		  <visual>
