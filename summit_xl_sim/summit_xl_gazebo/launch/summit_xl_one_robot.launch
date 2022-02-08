@@ -62,6 +62,7 @@
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
             <remap from="/joint_states" to="joint_states" />
         </node>
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node> 
 
         <!-- Spawner model into gazebo -->
         <node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
