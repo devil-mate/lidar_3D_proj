@@ -42,10 +42,10 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Rear LaserScan A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /robot/robotnik_base_control/cmd_vel
+    Topic: /robot/robotnik_base_control/cmd_
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -166,17 +166,64 @@ Visualization Manager:
           Value: false
         robot_imu_link:
           Value: false
+        robot_map:
+          Value: true
+        robot_odom:
+          Value: true
         robot_top_laser_base_link:
           Value: false
         robot_top_laser_link:
           Value: false
+        utm:
+          Value: true
+        world:
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        world:
+          robot_map:
+            robot_odom:
+              robot_base_footprint:
+                robot_base_link:
+                  robot_back_left_wheel:
+                    {}
+                  robot_back_right_wheel:
+                    {}
+                  robot_base_docking_contact_link:
+                    {}
+                  robot_front_laser_base_link:
+                    robot_front_laser_link:
+                      {}
+                  robot_front_left_wheel:
+                    {}
+                  robot_front_ptz_camera_base_link:
+                    robot_front_ptz_camera_pan_link:
+                      robot_front_ptz_camera_tilt_link:
+                        robot_front_ptz_camera_frame_link:
+                          robot_front_ptz_camera_optical_frame_link:
+                            {}
+                  robot_front_right_wheel:
+                    {}
+                  robot_front_zed_camera_base_link:
+                    robot_front_zed_camera_left_rgb_frame:
+                      robot_front_zed_camera_left_rgb_optical_frame:
+                        {}
+                    robot_front_zed_camera_right_rgb_frame:
+                      robot_front_zed_camera_right_rgb_optical_frame:
+                        {}
+                  robot_gps_base_link:
+                    {}
+                  robot_imu_link:
+                    {}
+                  robot_top_laser_base_link:
+                    robot_top_laser_link:
+                      {}
+              utm:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -763,7 +810,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: robot_map
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -787,25 +834,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 13.596681594848633
+      Distance: 14.781220436096191
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -3.9897098541259766
-        Y: -0.8352222442626953
+        X: -2.4310760498046875
+        Y: -2.454977035522461
         Z: -1.260566023120191e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.3147966861724854
+      Pitch: 1.1297967433929443
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 3.068580150604248
+      Yaw: 3.1554017066955566
     Saved: ~
 Window Geometry:
   Displays:
