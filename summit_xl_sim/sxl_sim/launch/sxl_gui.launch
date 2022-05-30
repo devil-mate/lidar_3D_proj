@@ -1,0 +1,18 @@
+<launch>
+    <arg name="paramyaml" value="$(find sxl_sim)/config/guiconfig.yaml"/>
+    <!-- <param name="easylogPath" type="string" value="$(arg logPath)"/> -->
+    
+    <node pkg="tv_gui"  name="gui_Node" type="gui_Node" output="screen"  >
+        <rosparam file="$(arg paramyaml)" command="load"/>  
+        <remap from = "move_base_action/cancel" to = "move_base/cancel"/> 
+    <!-- <remap from = "cmd_vel" to = "cmd_vel"/> -->
+    <remap from = "cmd_vel" to = "robot/robotnik_base_control/cmd_vel"/>
+   </node>
+</launch>
+
+
+
+
+
+
+

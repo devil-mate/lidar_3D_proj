@@ -1,0 +1,11 @@
+#folderPath: /home/jl/pra_Data/Data/2020415_test/2020414_11_37/auto
+#picName: ID_1_198151968.jpg
+folderPath: /home/jl/pra_data/202057_12_35/auto
+picName: building.jpg
+
+robotID: tv_robot01
+autoSpeedMax: 1.0
+manualSpeedMax: 0.9
+omegaMax: -0.9
+
+

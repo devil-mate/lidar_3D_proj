@@ -10,8 +10,8 @@
     <arg name="launch_robot_b" default="false"/>
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
-	<arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/>
-	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/tv_test.world"/> -->
+	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
+	<arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/tv_test.world"/>
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
     <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
