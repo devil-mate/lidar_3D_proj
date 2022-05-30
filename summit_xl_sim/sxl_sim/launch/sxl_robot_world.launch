@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- arg to config the launch file-->
+    <arg name="launch_rviz" default="false"/>
+    <arg name="launch_robot_a" default="true"/>
+    <arg name="launch_robot_b" default="false"/>
+    <arg name="launch_robot_c" default="false"/>
+    <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
+	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
+	<arg name="gazebo_world" default="$(find sxl_gazebo)/worlds/tv_test.world"/>
+	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
+    <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
+    <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
+    <arg name="debug" default="false"/>
+    <arg name="omni_drive" default="false"/>
+    <arg name="ros_planar_move_plugin" default="false"/>
+    <arg name="launch_advanced_simulation" default="false"/>
+    <arg name="use_gpu_for_simulation" default="false"/>
+	<arg name="file_rviz" default="$(find summit_xl_gazebo)/rviz/navigation.rviz"/>
+
+	<arg name="x_init_pose_robot_a" default="0" />
+	<arg name="y_init_pose_robot_a" default="-1" />
+	<arg name="z_init_pose_robot_a" default="0" />
+
+	
+
+	<!--BEGIN ROBOT 1-->
+	<include  file="$(find summit_xl_sim_bringup)/launch/summit_xl_complete.launch">
+		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
+		<!-- <arg name="x_init_pose_robot_a" value="$(arg x_init_pose_robot_a)" />
+		<arg name="y_init_pose_robot_a" value="$(arg y_init_pose_robot_a)" />
+		<arg name="z_init_pose_robot_a" value="$(arg z_init_pose_robot_a)" /> -->
+	</include>
+
+	
+
+</launch>

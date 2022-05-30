@@ -43,4 +43,8 @@
     * robotnik_msgs:
 * 具体使用:
     * 参照源码的readme.md
-    * 
+    * 启动:
+        ```
+        roslaunch summit_xl_sim_bringup summit_xl_complete.launch
+        ```
+        * 可以根据参数设置, 实现gmapping /navigation功能; 但自己使用时,只用它完成启动world,其他如gmapping/navigation, 以及rviz等用自己的启动文件.
