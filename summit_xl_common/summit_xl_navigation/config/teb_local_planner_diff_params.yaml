@@ -23,13 +23,13 @@ TebLocalPlannerROS:
 
   # Robot
 
-  max_vel_x: 0.9 #1.2
+  max_vel_x: 0.6 #1.2
   max_vel_x_backwards: 0.15
   max_vel_theta: 0.75
   max_vel_y: 0 # not used, is differential
   acc_lim_y: 0 # not used, is differential
-  acc_lim_x: 0.4
-  acc_lim_theta: 0.5
+  acc_lim_x: 0.2
+  acc_lim_theta: 0.2
   min_turning_radius: 0.0
   wheelbase: 0.0 # not used, is differential
   cmd_angle_instead_rotvel: false # not used, is differential
@@ -45,7 +45,7 @@ TebLocalPlannerROS:
 
   # Obstacles
 
-  min_obstacle_dist: 0.1 # minimum distance to obstacle: it depends on the footprint_model
+  min_obstacle_dist: 0.3 # minimum distance to obstacle: it depends on the footprint_model
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false

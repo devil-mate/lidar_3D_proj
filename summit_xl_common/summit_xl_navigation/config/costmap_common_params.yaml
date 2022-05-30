@@ -3,11 +3,11 @@ footprint: [[0.375, -0.34], [0.375, 0.34], [-0.375,0.34], [-0.375, -0.34]]
 publish_frequency: 1.0
 
 inflation_layer:
-  inflation_radius: 5
+  inflation_radius: 0.3
 
 obstacle_laser_layer:
-  obstacle_range: 10.5
-  raytrace_range: 10.5
+  obstacle_range: 2.5
+  raytrace_range: 5.5
   observation_sources: front_laser rear_laser
   front_laser: 
     data_type: LaserScan

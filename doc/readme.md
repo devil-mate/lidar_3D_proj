@@ -39,6 +39,8 @@
         * 
     * summit_xl_sim
         *  summit_xl_sim_bringup
+    * robotnik_sensors: r
+    * robotnik_msgs:
 * 具体使用:
     * 参照源码的readme.md
     * 

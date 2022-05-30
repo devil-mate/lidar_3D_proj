@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE summit_xl_navigation)"/>
-  <arg name="config_folder" default="config_sxl"/>
+  <arg name="config_folder" default="config"/>
   <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
   
   <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
@@ -39,8 +39,7 @@
     <rosparam file="$(arg config_path)/local_costmap_params.yaml" command="load" subst_value="true"/>
     
     <!-- Load local_planner diff or omni parameters -->
-    <!-- <rosparam file="$(arg config_path)/teb_local_planner_$(arg kinematics)_params.yaml" command="load" subst_value="true"/> -->
-    <rosparam file="$(arg config_path)/dwa_local_planner_params.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(arg config_path)/teb_local_planner_$(arg kinematics)_params.yaml" command="load" subst_value="true"/>
 		
     <!-- overwrites previous footprint values -->
     <rosparam file="$(arg config_path)/planner_footprints/$(arg footprint_model).yaml" command="load"/>

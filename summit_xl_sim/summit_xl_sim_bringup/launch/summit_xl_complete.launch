@@ -5,17 +5,17 @@
 	<!-- GPS default position of Robotnik at Fuente del Jarro-->
 
 	<arg name="launch_rviz" default="true"/>
-
-	<!-- <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/> -->
-	<!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
-	<arg name="gazebo_world" default="empty.world"/>
+	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="gazebo_gui" default="true"/>
 	<arg name="omni_drive" default="false"/>
 	<arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
+	<arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
+	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<!-- arguments robot a -->
 	<arg name="id_robot_a" default="robot"/>
@@ -82,6 +82,7 @@
 		<arg name="omni_drive" value="$(arg omni_drive)"/>
 		<arg name="default_xacro" value="$(arg default_xacro)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="ros_planar_move_plugin_force_based" value="$(arg ros_planar_move_plugin_force_based)" />
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
 		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 		<!-- robot_a args -->
@@ -139,6 +140,9 @@
 		<arg name="arm_model_c" value="$(arg arm_model_c)"/>
 		<arg name="launch_moveit_c" value="$(arg launch_moveit_c)"/>
 	</include>
-
+	<include if="$(arg launch_rosbridge)" file="$(find summit_xl_sim_bringup)/launch/rosbridge.launch">
+		<arg name="port" value="$(arg rosbridge_port)"/>
+		<arg name="id_robot" value="$(arg id_robot_a)"/>
+	</include>
 
 </launch>

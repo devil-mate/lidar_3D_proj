@@ -7,16 +7,14 @@
 
   <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg id_robot)_"/>
-	<!-- <arg name="scan_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC front_laser/scan)"/> -->
-	<arg name="scan_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC scan_filtered)"/>
+	<arg name="scan_topic" default="$(optenv ROBOT_LOCALIZATION_SCAN_TOPIC front_laser/scan)"/>
 	<arg name="map_frame" default="$(arg prefix)map"/>
-	<!-- <arg name="odom_frame" default="$(arg prefix)odom"/> -->
 	<arg name="odom_frame" default="$(arg prefix)odom"/>
 	<arg name="base_frame" default="$(arg prefix)base_link"/>
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
     <remap from="scan" to ="$(arg scan_topic)"/>
-  	<rosparam command="load" file="$(find summit_xl_localization)/config/slam_gmapping.yaml" subst_value="true"/>
+  	<rosparam command="load" file="$(arg config_path)/slam_gmapping.yaml" subst_value="true"/>
   </node>
 
 </launch>

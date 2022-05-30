@@ -1,7 +1,7 @@
 map_frame: $(arg map_frame)
 base_frame: $(arg base_frame)
 odom_frame: $(arg odom_frame)
-map_udpate_interval: 1.0
+map_udpate_interval: 2.0
 maxUrange: 16.0
 sigma: 0.05
 kernelSize: 1
