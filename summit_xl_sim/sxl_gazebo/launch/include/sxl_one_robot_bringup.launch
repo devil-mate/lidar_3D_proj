@@ -45,7 +45,7 @@
 
     <!-- BEGIN ROBOT-->
     <!-- <group ns="$(arg id_robot)"> -->
-        <include file="$(find summit_xl_gazebo)/launch/include/model_urdf.launch">
+        <include file="$(find sxl_gazebo)/launch/include/model_urdf.launch">
         </include>
 
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">

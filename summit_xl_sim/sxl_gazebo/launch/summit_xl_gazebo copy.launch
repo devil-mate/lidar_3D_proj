@@ -181,7 +181,7 @@
 
 
     <!-- gazebo simulation and rviz visualization-->
-    <include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">
+    <include file="$(find sxl_gazebo)/launch/gazebo_rviz.launch">
         <arg name="launch_rviz" value="$(arg launch_rviz)"/>
         <arg name="world" value="$(arg gazebo_world)"/>
         <arg name="debug" value="$(arg debug)"/>

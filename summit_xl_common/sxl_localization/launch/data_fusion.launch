@@ -53,7 +53,7 @@
 
     <!-- laser filter -->
    <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
-      <rosparam command="load" file="$(find summit_xl_localization)/config_$(arg config_prefix)/laserfilter_params.yaml" subst_value="true"/>
+      <rosparam command="load" file="$(find sxl_localization)/config_$(arg config_prefix)/laserfilter_params.yaml" subst_value="true"/>
       <remap from="scan" to="$(arg laser_raw_topic)" />
       <remap from="scan_filtered" to="$(arg laser_filtered_topic)" />
    </node>
@@ -81,7 +81,7 @@
    <!-- 1. imu_data & odom -->
    <!--发布 odom-baselink tf  -->
     L<node if="$(arg launch_pose_ekf)" pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
-        <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/pose_ekf_params.yaml" command="load" subst_value="true"/>
+        <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/pose_ekf_params.yaml" command="load" subst_value="true"/>
         <!-- <remap from="imu_data" to="$(arg imuodom_topic_imu_in)"/> -->
         <remap from="imu_data" to="$(arg imu_raw_data)"/>  <!--TODO IMU融合/滤波-->
         <remap from="odom" to="$(arg odom_raw_topic)" />
@@ -99,7 +99,7 @@
 
       <!-- pub  -->
       <remap from="odometry/filtered" to="$(arg imuodom_topic_pub)" />
-      <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/ekf_imu_odom_params.yaml" command="load" subst_value="true"/>
+      <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/ekf_imu_odom_params.yaml" command="load" subst_value="true"/>
   </node>
    
   <!-- TODO if merge gps , 三个一起融合; 保留串级融合用于精度比较 -->
@@ -110,16 +110,16 @@
          <remap from="gps/fix" to="$(arg gps_raw)"/>   
          <!-- pub -->
          <remap from="odometry/gps" to="$(arg gpsodom_topic_gps_in)" /> 
-         <rosparam command="load" file="$(find summit_xl_localization)/config_$(arg config_prefix)/navsat_transform_param.yaml" subst_value="true"/>
+         <rosparam command="load" file="$(find sxl_localization)/config_$(arg config_prefix)/navsat_transform_param.yaml" subst_value="true"/>
       </node> 
       <!-- GPS -->
       <node if ="$(arg gps_odom)"  pkg="robot_localization" type="ekf_localization_node" name="ekf_gps_odom" clear_params="true" output="screen">      
             <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
-            <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_odom_ekf_params.yaml" command="load" subst_value="true"/>
+            <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/gps_odom_ekf_params.yaml" command="load" subst_value="true"/>
       </node>
       <node if ="$(arg gps_world)"  pkg="robot_localization" type="ekf_localization_node" name="ekf_gps_world" clear_params="true" output="screen">      
             <remap from="odometry/filtered" to="$(arg gps_world_pub)" />
-            <rosparam file="$(find summit_xl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
+            <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
       </node>
       
 

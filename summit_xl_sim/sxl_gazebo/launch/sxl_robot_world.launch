@@ -11,7 +11,7 @@
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
-	<arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/tv_test.world"/>
+	<arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/tv_test.world"/>
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
     <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
@@ -20,7 +20,7 @@
     <arg name="ros_planar_move_plugin" default="false"/>
     <arg name="launch_advanced_simulation" default="false"/>
     <arg name="use_gpu_for_simulation" default="false"/>
-	<arg name="file_rviz" default="$(find summit_xl_gazebo)/rviz/navigation.rviz"/>
+	<arg name="file_rviz" default="$(find sxl_gazebo)/rviz/navigation.rviz"/>
 
 
 	<!--params of the different robots-->
@@ -87,7 +87,7 @@
     <arg name="moveit_movegroup_c" default="false"/>
 
 	<!--BEGIN ROBOT 1-->
-	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/sxl_one_robot_gazebo.launch">
+	<include if="$(arg launch_robot_a)" file="$(find sxl_gazebo)/launch/sxl_one_robot_gazebo.launch">
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
@@ -169,7 +169,7 @@
 
     <!-- gazebo simulation and rviz visualization-->
 
-    <include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">
+    <include file="$(find sxl_gazebo)/launch/gazebo_rviz.launch">
         <arg name="launch_rviz" value="$(arg launch_rviz)"/>
         <arg name="world" value="$(arg gazebo_world)"/>
         <arg name="debug" value="$(arg debug)"/>
