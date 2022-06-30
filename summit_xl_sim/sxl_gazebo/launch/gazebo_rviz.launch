@@ -9,7 +9,7 @@
 	<!-- located in summit_xl_gazebo/worlds -->
 	<arg name="file_rviz" default=""/>
 	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-	<!-- <rosparam file = "$(find sxl_gazebo)/config/gazebo.yaml" command ="load"/> -->
+	
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
 		<arg name="world_name" value="$(arg world)"/>
 		<arg name="debug" value="$(arg debug)" />

@@ -1,0 +1,115 @@
+<launch>
+    <arg name="logPath" default="/home/log/"/>
+    <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="groupNameSpace" default="robot"/>
+    <!-- <arg name="groupNameSpace" default="tracked_vehicle"/> -->    
+    <!-- <arg name="perRviz_open" default="false"/> -->
+    <!-- <arg name="cmdGUI" default="false"/> -->
+    <!-- <arg name="communicateRos" default="false"/> -->
+    
+    <arg name="launchRviz" default="false"/>
+    <arg name="launchSim" default="true"/>
+    <arg name="prefix" default="robot_"/> <!--frame prefix-->
+    <arg name="config_prefix" default="sxl"/> <!--config prefix-->
+    <arg name="launch_DebugNode" default="false"/>
+    <arg name= "debug_config" default="$(find debug_pkg)/config/params.yaml"/>
+
+    <!-- 仿真参数更改 -->
+    <param name="use_sim_time" value="true" />
+    <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationsxl.rviz" /> -->
+    <arg name="laser_raw_topic" default="front_laser/scan"/> 
+    <arg name="imu_raw_data" default="imu/data_raw" />
+    <arg name="imu_raw_mag" default="handsfree/mag" /> <!--default false-->
+    <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
+    <arg name="img1_raw" default="robot_front_ptz_camera/image_raw"/> 
+    <arg name="gps_raw" default="gps/NavSatFix"/>
+    <arg name="cmd_vel_out" default="robotnik_base_control/cmd_vel"/>
+    
+    <!-- <arg name="laser_box_frame" default="$(arg prefix)_front_laser_base_link"/> -->
+    <!-- <arg name="laser_frame" default="$(arg prefix)_front_laser_link"/> -->
+    
+     <!-- frame name -->
+    <arg name="world_frame" default="$(arg prefix)map"/> 
+    <arg name="map_frame" default="$(arg prefix)map"/>
+    <arg name="odom_frame" default="$(arg prefix)odom"/>
+
+    <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+    <arg name="laser_frame" default="$(arg prefix)front_laser_link"/>
+    <arg name="laser_box_frame" default="$(arg prefix)front_laser_base_link"/>
+    <arg name="imu_frame" default="$(arg prefix)imu_link"/>
+    <arg name="imuFilter_fixed_frame" default="$(arg prefix)imu_link"/>
+    
+
+    <group ns="$(arg groupNameSpace)">
+
+        <!-- task -->
+        <include file="$(find tv_task)/launch/tv_task_node.launch">
+            <arg name="base_frame" value="$(arg base_frame)"/>
+            <arg name="map_frame" value="$(arg map_frame)"/>
+            <!-- <arg name="world_frame" value="$(arg world_frame)"/> -->
+            <arg name="odom_frame" value="$(arg odom_frame)"/>
+            <arg name="gps_data" value="$(arg gps_raw)"/>
+        </include>
+            
+        <group unless ="$(arg launchSim)">
+            <!-- 激光雷达数据 -->
+            <include file="$(find ls01b_v2)/launch/ls01b_v2.launch">
+                <arg name="laser_frame" value="$(arg laser_frame)"/>
+                <arg name="laser_raw_topic" value="$(arg laser_raw_topic)"/>
+            </include>
+            <!-- IMU -->
+            <include file="$(find handsfree_ros_imu)/launch/handsfree_imu.launch">
+            </include>
+            <!-- rviz 模型解析以及启动 -->
+            <include file="$(find tv_bringup)/launch/tv_bringup.launch">
+                <arg name="laser_frame" value="$(arg laser_frame)"/>
+                <arg name="imu_frame" value="$(arg imu_frame)"/>
+                <arg name="base_frame" value="$(arg base_frame)"/>
+            </include> 
+        </group>
+
+
+
+        <!--navigation -->
+        <include file ="$(find summit_xl_navigation)/launch/$(arg config_prefix)_navigation.launch">
+            <arg name="prefix" value="$(arg prefix)"/>
+            <arg name="config_prefix" value="$(arg config_prefix)"/>
+            <!-- <arg name="rvizConfig" value="$(arg rvizConfig)"/> -->
+            <arg name="laser_raw_topic" value="$(arg laser_raw_topic)"/> 
+            <arg name="imu_raw_data" value="$(arg imu_raw_data)" />
+            <!-- <arg name="imu_raw_data" value="imu/data_raw" /> -->
+            <arg name="imu_raw_mag" value="$(arg imu_raw_mag)" /> <!--value false-->
+            <arg name="odom_raw_topic" value="$(arg odom_raw_topic)" />
+            <arg name="img1_raw" value="$(arg img1_raw)" />
+            <!-- <arg name="odom_raw_topic" value="robotnik_base_control/odom" /> -->
+            <arg name="gps_raw" value="$(arg gps_raw)"/>
+            <arg name="cmd_vel_out" value="$(arg cmd_vel_out)"/>
+
+            <arg name="imuFilter_fixed_frame" value="$(arg imuFilter_fixed_frame)"/>
+            <arg name="laser_box_frame" value="$(arg laser_box_frame)"/>
+            <arg name="laser_frame" value="$(arg laser_frame)"/>
+
+            <arg name="base_frame" value="$(arg base_frame)"/>
+            <arg name="odom_frame" value="$(arg odom_frame)"/>
+            <arg name="map_frame" value="$(arg map_frame)"/>
+
+        </include >
+    
+        <include if="$(arg launch_DebugNode)" file="$(find debug_pkg)/launch/debug_node.launch">
+            <arg name="base_frame" value="$(arg base_frame)"/>  
+            <arg name="odom_frame" value="$(arg odom_frame)"/> 
+            <arg name="map_frame" value="$(arg map_frame)"/>
+            
+            <arg name= "debug_config" value="$(arg debug_config )"/>
+        </include>
+    </group>
+
+
+</launch>
+
+
+
+
+
+
+

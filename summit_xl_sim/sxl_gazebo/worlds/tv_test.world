@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <sdf version='1.6'>
   <world name='default'>
     <light name='sun' type='directional'>
@@ -26,8 +27,8 @@
           <surface>
             <friction>
               <ode>
-                <mu>100</mu>
-                <mu2>50</mu2>
+                <mu>1</mu>
+                <mu2>0.5</mu2>
               </ode>
               <torsional>
                 <ode/>
@@ -7980,7 +7981,7 @@
       <pose frame=''>12.1469 -8.51271 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>1146 776000000</sim_time>
+      <sim_time>0</sim_time>
       <real_time>113 35773191</real_time>
       <wall_time>1629355364 786404823</wall_time>
       <iterations>112259</iterations>

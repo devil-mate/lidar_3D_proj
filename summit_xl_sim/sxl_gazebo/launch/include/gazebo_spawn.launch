@@ -11,6 +11,13 @@
 		args="-x $(arg x_init_pose)
 			-y $(arg y_init_pose)
 			-z $(arg z_init_pose)
+			-urdf
+			-param robot_description
+			-model $(arg id_robot)" />
+	<!-- <node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+		args="-x $(arg x_init_pose)
+			-y $(arg y_init_pose)
+			-z $(arg z_init_pose)
 			-J $(arg arm_prefix)_joint_1 0.0
 			-J $(arg arm_prefix)_joint_2 2.9
 			-J $(arg arm_prefix)_joint_3 0.0
@@ -26,6 +33,6 @@
 			-J $(arg arm_prefix)_joint_finger_tip_3 1.0
 			-urdf
 			-param robot_description
-			-model $(arg id_robot)" />
+			-model $(arg id_robot)" /> -->
 
 </launch>

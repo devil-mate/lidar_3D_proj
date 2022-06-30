@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="robot_modle" default="sxl_std_all_kinect.urdf.xacro"/> 
 
     <arg name="id_robot" default="robot"/>
     <arg name="prefix" default="$(arg id_robot)_"/>
@@ -51,7 +52,10 @@
     <group ns="$(arg id_robot)">
 
         <!-- Load the URDF into the ROS Parameter Server -->
-        <include file="$(find sxl_gazebo)/launch/include/sxl_one_robot_bringup.launch"/>
+        <include file="$(find sxl_gazebo)/launch/include/sxl_one_robot_bringup.launch">
+            <arg name="robot_modle" value="$(arg robot_modle)"/>
+        
+        </include>
         <include file="$(find sxl_gazebo)/launch/include/gazebo_spawn.launch"/>
         <!-- start summit_xl_control nodes /// twist_mux -->
         <include file="$(find sxl_control)/launch/sxl_control.launch">

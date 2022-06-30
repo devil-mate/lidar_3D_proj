@@ -10,8 +10,8 @@
 	<arg name="gazebo_gui" default="true"/>
 	<arg name="omni_drive" default="false"/>
 	<arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
-	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
-	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
+	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="false"/>
+	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="false"/>
 	<arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION true)"/>

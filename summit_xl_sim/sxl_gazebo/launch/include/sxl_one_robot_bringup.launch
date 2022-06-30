@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="robot_modle" default="sxl_std_all_kinect.urdf.xacro"/> 
     <arg name="id_robot" default="robot"/>
     <arg name="prefix" default="$(arg id_robot)_"/>
     <arg name="x_init_pose" default="0"/>
@@ -45,7 +46,9 @@
 
     <!-- BEGIN ROBOT-->
     <!-- <group ns="$(arg id_robot)"> -->
+        
         <include file="$(find sxl_gazebo)/launch/include/model_urdf.launch">
+            <arg name="robot_modle" value="$(arg robot_modle)"/>
         </include>
 
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
