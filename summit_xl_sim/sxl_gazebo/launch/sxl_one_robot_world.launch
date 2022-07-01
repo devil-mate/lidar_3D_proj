@@ -25,7 +25,8 @@
     <arg name="use_gpu_for_simulation" default="false"/>
 	<arg name="file_rviz" default="$(find sxl_gazebo)/rviz/navigation.rviz"/>
 
-	<arg name="robot_modle" default="sxl_std_all_kinect.urdf.xacro"/> 
+	<!-- <arg name="robot_modle" default="sxl_std_all_kinect.urdf.xacro"/>  -->
+	<arg name="robot_modle" default="sxl_std_2d_kinect.urdf.xacro"/> 
 	<!-- <arg name="robot_modle" default="summit_xl_std.urdf.xacro"/> -->
 	<!-- <arg name="robot_modle" default="sxl_std_stereo.urdf.xacro"/> -->
 
