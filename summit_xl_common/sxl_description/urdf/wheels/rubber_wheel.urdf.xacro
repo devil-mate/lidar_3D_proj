@@ -77,22 +77,22 @@
 
     <gazebo reference="${prefix}_wheel">
     <!-- <gazebo reference="${prefix}_wheel"> -->
-			<mu1 value="1"/>
-			<mu2 value="0.1"/>
+			<mu1 value="0.7"/>
+			<mu2 value="0.3"/>
 			<kp value="10000000.0" />
 			<!-- <ki value="10.0" /> -->
 			<kd value="0.10" />
 			<fdir1 value="1 0 0"/>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
-    <gazebo reference="${prefix}_wheel_joint">
+    <!-- <gazebo reference="${prefix}_wheel_joint">
 			<mu1 value="0.1"/>
 			<mu2 value="0.1"/>
 			<kp value="10000000.0" />
 			<kd value="1" />
 			<fdir1 value="1 0 0"/>
       <turnGravityOff>false</turnGravityOff>
-    </gazebo>
+    </gazebo> -->
 
 
   </xacro:macro>
