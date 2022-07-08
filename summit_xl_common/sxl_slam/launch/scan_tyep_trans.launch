@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+	
+
+  <node pkg="sxl_slam" type="scanTypeTrans_node" name="scanTypeTrans_node">
+ 	<!-- <param name="subScanTopic" value="/scan"/> -->
+ 	<!-- <param name="frame_id" value="laser_link"/> -->
+    <!-- <remap from="scan" to ="/testscan"/> -->
+    <!-- <remap from="out_scan" to ="olaserScan"/> -->
+  </node>
+
+</launch>

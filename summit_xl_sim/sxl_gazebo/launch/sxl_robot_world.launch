@@ -5,6 +5,8 @@
 
     <!--launch_navigation and launch_navigation_nomap args are exclusive
     and they are (or not) launched for all robots-->
+	<param name="/use_sim_time" value="true" />
+	
     <arg name="launch_rviz" default="false"/>
     <arg name="launch_robot_a" default="true"/>
     <arg name="launch_robot_b" default="false"/>
