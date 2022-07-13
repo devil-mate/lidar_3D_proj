@@ -1,4 +1,13 @@
 [toc]
+# 工程说明
+* 工程组织 lidar_3D_proj文件夹
+    * summit_xl_common 功能包集
+    * 
+    * robot_upper_app 功能包集 机器人周边/上层应用
+        * 语音识别/交流
+        * 视觉识别/物体识别/对象检测跟踪
+        * 机器学习
+
 # 硬件配置说明
 * 参考：[Summit-XL系列移动平台](https://zhuanlan.zhihu.com/p/91415812)
 * Summit-XL系列移动机器人包括Summit-XL、Summit-XL HL、Summit-XL Steel三款移动机器人平台；SUMMIT-XL有基于4个高功率马达轮子的转向运动学。每个车轮集成了一个轮毂无刷电机与变速箱和编码器(可选)。
