@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(custom_global_path_planner)
+project(custom_local_path_planner)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  pluginlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +104,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES custom_global_path_planner
+#  LIBRARIES custom_local_path_planner
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -121,11 +120,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-link_libraries( ${catkin_LIBRARIES} )
-
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/custom_global_path_planner.cpp
+#   src/${PROJECT_NAME}/custom_local_path_planner.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -136,7 +133,7 @@ link_libraries( ${catkin_LIBRARIES} )
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/custom_global_path_planner_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/custom_local_path_planner_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,9 +149,6 @@ link_libraries( ${catkin_LIBRARIES} )
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-
-add_subdirectory(src)
-
 
 #############
 ## Install ##
@@ -203,7 +197,7 @@ add_subdirectory(src)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_custom_global_path_planner.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_custom_local_path_planner.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
