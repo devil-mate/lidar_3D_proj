@@ -1,5 +1,5 @@
-#ifndef _PURE_PURSUIT_PLANNER_H
-#define _PURE_PURSUIT_PLANNER_H
+#ifndef _PID_TRACKING_CONTROLLER_H
+#define _PID_TRACKING_CONTROLLER_H
 
 #include <ros/ros.h>
 
@@ -10,9 +10,11 @@
 namespace CUSTOM_PATH_PLANNER{
 
 
-class PurePursuitPlanner: public nav_core::BaseLocalPlanner{
+class PIDTrackingController: public nav_core::BaseLocalPlanner{
 
 public:
+    PIDTrackingController();
+    ~PIDTrackingController();
     bool computeVelocityCommands(geometry_msgs::Twist& cmd_vel);
     bool isGoalReached();
     bool setPlan(const std::vector<geometry_msgs::PoseStamped>& plan);
