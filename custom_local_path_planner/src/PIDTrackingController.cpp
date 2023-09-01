@@ -8,14 +8,22 @@ PIDTrackingController::PIDTrackingController(){
 }
 bool PIDTrackingController::computeVelocityCommands(geometry_msgs::Twist& cmd_vel){
 
-    // getRobotPose（）
-    // if ( ! costmap_ros_->getRobotPose(current_pose_)) {
-    //   ROS_ERROR("Could not get robot pose");
-    //   return false;
-    // }
+  if(!initialized_){
+    ROS_ERROR("local_planner has not been initialized, please call initialize() before using this planner");
+    return false;
+  }
+    
+
+    // Get robot velocity
+    geometry_msgs::PoseStamped robot_vel_tf;
+    odom_helper_.getRobotVel(robot_vel_tf);
+    if ( !getRobotPose(current_pose_)) {
+      ROS_ERROR("Could not get robot pose");
+      return false;
+    }
     // 全局路径裁剪
     // TODO 根据输入是全局路径还是相对路径进行转换
-
+    pruneGlobalPlan();
     //  相对路径
     std::vector<geometry_msgs::PoseStamped> transformed_plan;
     if ( ! planner_util_.getLocalPlan(current_pose_, transformed_plan)) {
@@ -76,6 +84,7 @@ bool PIDTrackingController::setPlan(const std::vector<geometry_msgs::PoseStamped
 void PIDTrackingController::initialize(std::string name, tf2_ros::Buffer* tf, costmap_2d::Costmap2DROS* costmap_ros){
 
 
+    initialized_ = true;
 }
 
 
