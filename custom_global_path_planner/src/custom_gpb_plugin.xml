@@ -1,0 +1,7 @@
+<library path="lib/libcustom_global_linear_planner">
+  <class name="custom_global_path_planner/LinearPathPlanner" type="custom_global_path_planner::LinearPathPlanner" base_class_type="nav_core::BaseGlobalPlanner">
+    <description>
+      A implementation of a grid based custom planner using linear path planner.
+    </description>
+  </class>
+</library>
