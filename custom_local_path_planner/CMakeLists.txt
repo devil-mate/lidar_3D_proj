@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+
+  base_local_planner
+  costmap_2d
+  nav_core
 )
 
 ## System dependencies are found with CMake's conventions
@@ -120,6 +124,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+add_subdirectory(src)
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/custom_local_path_planner.cpp

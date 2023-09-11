@@ -2,13 +2,13 @@
   <!-- Arguments -->
 
   <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigation_tv.rviz" /> -->
-  <arg name="rvizConfig" default="$(find sxl_sim)/rviz/navigationsxl.rviz" />
+  <arg name="rvizConfig" default="$(find sxl_gazebo)/rviz/navigationsxl.rviz" />
   <arg name="prefix" default="robot_"/> <!--frame prefix-->
   <arg name="groupNameSpace" default="robot"/>
-  <arg name="launch_gui" default="false"/>
+  <arg name="launch_gui" default="true"/>
 
-  <arg name="launch_DebugNode" default="false"/>
-  <!-- <arg name= "debug_config" default="$(find debug_pkg)/config/params.yaml"/> -->
+  <arg name="launch_DebugNode" default="true"/>
+  <arg name= "debug_config" default="$(find debug_pkg)/config/params.yaml"/>
   <arg name="map_frame" default="$(arg prefix)map"/>
   <arg name="odom_frame" default="$(arg prefix)odom"/>
   <arg name="base_frame" default="$(arg prefix)base_footprint"/>
@@ -21,13 +21,13 @@
     <include if="$(arg launch_gui)" file ="$(find tv_gui)/launch/tv_gui.launch">
     </include>
 
-    <!-- <include   if="$(arg launch_DebugNode)" file="$(find debug_pkg)/launch/debug_node.launch">
+    <include   if="$(arg launch_DebugNode)" file="$(find debug_pkg)/launch/debug_node.launch">
       <arg name="base_frame" value="$(arg base_frame)"/>  
       <arg name="odom_frame" value="$(arg odom_frame)"/> 
       <arg name="map_frame" value="$(arg map_frame)"/>
       
       <arg name= "debug_config" value="$(arg debug_config )"/>
-    </include> -->
+    </include>
 
   </group>
 
