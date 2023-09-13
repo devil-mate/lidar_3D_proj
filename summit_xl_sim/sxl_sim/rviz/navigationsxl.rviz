@@ -5,26 +5,33 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Status1
         - /TF1
         - /TF1/Frames1
         - /GlobalMap1/Global costmap A1
         - /LocalMap1/Local costmap A1
         - /LocalMap1/dwa_local_planner1
-        - /Sensors_laser1
         - /Sensors_laser1/PointCloud21
         - /Sensors_laser1/Rear LaserScan A1
-        - /Sensors_other1
+        - /Sensors_other1/Imu_raw1/Box properties1
         - /Sensors_other1/Imu_raw1/Axes properties1
         - /Sensors_other1/Imu_raw1/Acceleration properties1
         - /Sensors_other1/Imu_filter1/Box properties1
+        - /Sensors_other1/Imu_filter1/Axes properties1
         - /Sensors_other1/Imu_filter1/Acceleration properties1
-        - /RobotModel1/Links1
+        - /Odometry_filtered1/Shape1
         - /Odometry_filtered1/Covariance1
         - /Odometry_filtered1/Covariance1/Position1
         - /Odometry_filtered1/Covariance1/Orientation1
+        - /Odometry_gps1
         - /Odometry_gps1/Shape1
-      Splitter Ratio: 0.47826087474823
-    Tree Height: 362
+        - /Odometry1
+        - /Odometry1/Shape1
+        - /Odometry1/Covariance1
+        - /Odometry1/Covariance1/Position1
+        - /Odometry1/Covariance1/Orientation1
+      Splitter Ratio: 0.28318583965301514
+    Tree Height: 349
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -46,7 +53,7 @@ Panels:
     SyncSource: ""
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /robot/robotnik_base_control/cmd_
+    Topic: /robot/robotnik_base_control/cmd_vel
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -76,12 +83,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /robot/map
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 1
       Arrow Length: 0.30000001192092896
       Axes Length: 0.30000001192092896
@@ -114,28 +121,119 @@ Visualization Manager:
       Unreliable: false
       Value: false
     - Class: rviz/Axes
-      Enabled: false
+      Enabled: true
       Length: 1
       Name: Axes
       Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
-      Value: false
+      Value: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Filter (blacklist): ""
       Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        map:
+          Value: true
+        robot_back_left_wheel:
+          Value: false
+        robot_back_right_wheel:
+          Value: false
+        robot_base_docking_contact_link:
+          Value: false
+        robot_base_footprint:
+          Value: false
+        robot_base_link:
+          Value: true
+        robot_front_kinect_camera_depth_link:
+          Value: false
+        robot_front_kinect_camera_depth_optical_frame:
+          Value: false
+        robot_front_kinect_camera_link:
+          Value: false
+        robot_front_kinect_camera_rgb_base_link:
+          Value: false
+        robot_front_kinect_camera_rgb_optical_frame:
+          Value: false
+        robot_front_laser_base_link:
+          Value: false
+        robot_front_laser_link:
+          Value: false
+        robot_front_left_wheel:
+          Value: false
+        robot_front_ptz_camera_base_link:
+          Value: false
+        robot_front_ptz_camera_frame_link:
+          Value: false
+        robot_front_ptz_camera_optical_frame_link:
+          Value: false
+        robot_front_ptz_camera_pan_link:
+          Value: false
+        robot_front_ptz_camera_tilt_link:
+          Value: false
+        robot_front_right_wheel:
+          Value: false
+        robot_gps_base_link:
+          Value: false
+        robot_imu_link:
+          Value: false
+        robot_odom:
+          Value: false
+        robot_top_laser_base_link:
+          Value: false
+        robot_top_laser_link:
+          Value: false
+        utm:
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        map:
+          robot_odom:
+            robot_base_footprint:
+              robot_base_link:
+                robot_back_left_wheel:
+                  {}
+                robot_back_right_wheel:
+                  {}
+                robot_base_docking_contact_link:
+                  {}
+                robot_front_kinect_camera_rgb_base_link:
+                  robot_front_kinect_camera_depth_link:
+                    robot_front_kinect_camera_depth_optical_frame:
+                      {}
+                  robot_front_kinect_camera_link:
+                    {}
+                  robot_front_kinect_camera_rgb_optical_frame:
+                    {}
+                robot_front_laser_base_link:
+                  robot_front_laser_link:
+                    {}
+                robot_front_left_wheel:
+                  {}
+                robot_front_ptz_camera_base_link:
+                  robot_front_ptz_camera_pan_link:
+                    robot_front_ptz_camera_tilt_link:
+                      robot_front_ptz_camera_frame_link:
+                        robot_front_ptz_camera_optical_frame_link:
+                          {}
+                robot_front_right_wheel:
+                  {}
+                robot_gps_base_link:
+                  {}
+                robot_imu_link:
+                  {}
+                robot_top_laser_base_link:
+                  robot_top_laser_link:
+                    {}
+            utm:
+              {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
@@ -433,21 +531,21 @@ Visualization Manager:
             Enable acceleration: true
           Axes properties:
             Axes scale: 1
-            Enable axes: false
+            Enable axes: true
           Box properties:
             Box alpha: 1
             Box color: 255; 0; 0
-            Enable box: false
+            Enable box: true
             x_scale: 0.30000001192092896
             y_scale: 0.30000001192092896
             z_scale: 0.4000000059604645
           Class: rviz_imu_plugin/Imu
-          Enabled: false
+          Enabled: true
           Name: Imu_raw
-          Topic: /robot/imu/data
+          Topic: /robot/imu/data_raw
           Unreliable: false
-          Value: false
-          fixed_frame_orientation: false
+          Value: true
+          fixed_frame_orientation: true
         - Acceleration properties:
             Acc. vector alpha: 1
             Acc. vector color: 32; 74; 135
@@ -460,7 +558,7 @@ Visualization Manager:
           Box properties:
             Box alpha: 1
             Box color: 32; 74; 135
-            Enable box: false
+            Enable box: true
             x_scale: 0.30000001192092896
             y_scale: 0.30000001192092896
             z_scale: 0.4000000059604645
@@ -633,7 +731,7 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Angle Tolerance: 0.20000000298023224
+    - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
         Orientation:
@@ -649,23 +747,23 @@ Visualization Manager:
           Color: 204; 51; 204
           Scale: 0.10000000149011612
           Value: true
-        Value: true
+        Value: false
       Enabled: false
-      Keep: 10
+      Keep: 100
       Name: Odometry_filtered
-      Position Tolerance: 0.20000000298023224
+      Position Tolerance: 0.10000000149011612
       Shape:
         Alpha: 1
         Axes Length: 1
         Axes Radius: 0.10000000149011612
-        Color: 255; 25; 0
+        Color: 237; 212; 0
         Head Length: 0.30000001192092896
         Head Radius: 0.10000000149011612
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: /robot/odometry/filtered_imuodom
-      Unreliable: false
+      Topic: /robot/odometry/gps
+      Unreliable: true
       Value: false
     - Alpha: 1
       Axes Length: 1
@@ -682,7 +780,7 @@ Visualization Manager:
       Topic: /robot/move_base_simple/goal
       Unreliable: false
       Value: false
-    - Angle Tolerance: 0.10000000149011612
+    - Angle Tolerance: 0.05000000074505806
       Class: rviz/Odometry
       Covariance:
         Orientation:
@@ -699,7 +797,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 100
       Name: Odometry_gps
       Position Tolerance: 0.10000000149011612
@@ -713,14 +811,78 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: /robot/odometry/filtered_gpsodom
+      Topic: /robot/odometry/gpsodom_filtered
       Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.30000001192092896
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 0.10000000149011612
+          Scale: 0.10000000149011612
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 0.10000000149011612
+          Value: true
+        Value: false
+      Enabled: false
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Shape:
+        Alpha: 1
+        Axes Length: 0.10000000149011612
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 0.5
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /robot/odometry/gps
+      Unreliable: true
+      Value: false
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/PoseWithCovariance
+      Color: 255; 25; 0
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: false
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: PoseWithCovariance
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /robot/robot_pose_ekf/odom_combined
+      Unreliable: true
       Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: robot_base_footprint
+    Fixed Frame: robot_odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -744,35 +906,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 5.763318061828613
+      Distance: 4.762892723083496
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -2.057117223739624
-        Y: 0.27420902252197266
-        Z: -6.150859007902909e-6
+        X: -1.3006727695465088
+        Y: 0.29674211144447327
+        Z: -3.642279625637457e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3897966146469116
+      Pitch: 0.9197969436645508
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 2.172231435775757
+      Yaw: 2.987231492996216
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 780
+  Height: 791
   Hide Left Dock: false
-  Hide Right Dock: false
+  Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001fa0000026efc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d000001a7000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001800500054005a002000430061006d0065007200610020004100000002500000009b0000000000000000fc000001ea000000c1000000640100001cfa000000000100000002fb0000000c00540065006c0065006f00700100000000ffffffff000000ac00fffffffb0000000a0049006d0061006700650100000000000001fa0000005e00ffffff000000010000010f0000026efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d0000026e000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005a00000003efc0100000002fb0000000800540069006d00650100000000000005a0000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000028b0000026e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000002c500000279fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d0000019a000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001800500054005a002000430061006d0065007200610020004100000002500000009b0000000000000000fc000001dd000000d9000000640100001cfa000000000100000002fb0000000c00540065006c0065006f00700100000000ffffffff000000ac00fffffffb0000000a0049006d0061006700650100000000000001fa0000005e00ffffff000000010000010f0000037efc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d0000037e000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000047a0000003efc0100000002fb0000000800540069006d006501000000000000047a000002eb00fffffffb0000000800540069006d00650100000000000004500000000000000000000001af0000027900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Teleop:
@@ -782,7 +944,7 @@ Window Geometry:
   Tool Properties:
     collapsed: false
   Views:
-    collapsed: false
-  Width: 1440
-  X: 1949
-  Y: 152
+    collapsed: true
+  Width: 1146
+  X: 371
+  Y: 102

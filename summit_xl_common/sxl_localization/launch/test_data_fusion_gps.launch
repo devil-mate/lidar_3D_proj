@@ -1,18 +1,14 @@
-<!-- imu 和轮式里程计融合 -->
+<!-- 融合gps 全局定位 -->
 <launch>
     <arg name="id_robot" default="robot"/>
-   <!--  TODO odom&imu;  融合gps 和slam  -->
+   <!--  TODO odom&imu 先融合后再 融合gps  -->
    <arg name="prefix" default="robot_"/>
    <arg name="config_prefix" default="sxl"/>
 
    <arg name="launch_pose_ekf" default="false"/>
    <arg name="localization_ekf_pose" default="true"/> 
    <arg name="use_gps" default="true"/> <!--gps（-odom） localization -->
-   <!-- gps 融合到里程计 -->
-   <arg name="gps_odom" default="true"/>
-   <!-- gps融合slam -->
-   <arg name="gps_world" default="false"/>
-   <arg name="imuodom_pub_tf" default="true"/>
+   <arg name="imuodom_pub_tf" default="false"/>
    <!-- <arg name="odom_filter_topic" default="odom_topic"/> -->
    
    <!-- laser -->
@@ -28,30 +24,27 @@
    <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
    <arg name="vins_out_odom" default="vins/odometry"/>
    <arg name="imuodom_topic_imu_in" default="imu/data"/>
-   <arg name="imuodom_topic_pub" default="/imuodom_pub"/>
+   <arg name="imuodom_topic_pub" default="imuodom_filtered"/>
 
    <!-- gps odom params-->
    <arg name="gps_raw" default="gps/NavSatFix"/>
    <arg name="gpsodom_topic_imu_in" default="$(arg imuodom_topic_imu_in)"/>
    <arg name="gpsodom_topic_odom_in" default="$(arg imuodom_topic_pub)"/>
-   <arg name="gpsodom_topic_gps_in" default="odometry/gps"/>
-   <arg name="gpsodom_topic_pub" default="odometry/filtered_gpsodom"/>
-   <arg name="wait_for_datum" default="true" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
-   <!-- gps world -->
-   <arg name="gps_world_pub" default="odometry/filtered_gpsworld"/>
-   <arg name="slam_odom_topic" default="slam_gmapping/odom"/>
+   <arg name="gps_transform_topic_pub" default="odometry/gps"/>
+   <arg name="gpsodom_topic_pub" default="odometry/gpsodom_filtered"/>
+   <arg name="wait_for_datum" default="false" /> <!-- if navsat must take the orientation from the imu or from the datum service -->
+   
    <!-- frame name -->
    <arg name="map_frame" default="map"/>
-   <arg name="odom_frame" default="$(arg prefix)odom"/>
-   <!-- <arg name="base_frame" default="base_link"/> -->
+    <arg name="odom_frame" default="$(arg prefix)odom"/>
+   <!-- <arg name="base_frame" default="robot_base_link"/> -->
    <arg name="base_frame" default="$(arg prefix)base_footprint"/> 
    <arg name="world_frame" default="world_frame"/> 
-   <arg name="test_world_frame" default="world_frame"/> 
 
-   <!-- <arg name="odom_frame" default="$(arg prefix)odom"/> 
-   
-   -->
-
+<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_map_broadcaster" args="x y z yaw pitch roll odom map" /> -->
+<!-- <node pkg="tf" type="static_transform_publisher" name="world2odom" args="0 0 0 0 0 0 1 world odom 20"/> -->
+<node pkg="tf" type="static_transform_publisher" name="odom_to_map_broadcaster" 
+    args="1 1 0 0 0 0 1 $(arg odom_frame) $(arg map_frame) 20" />
    
 <group ns="$(arg id_robot)">
     <!-- laser filter -->
@@ -61,7 +54,7 @@
       <remap from="scan_filtered" to="$(arg laser_filtered_topic)" />
    </node> -->
 
-  <!-- TODO imu 融合/滤波 -->
+  <!-- TODO imu 融合/滤波 有问题 -->
    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_node" output="screen">
       <remap from="imu/mag" to="$(arg imu_raw_mag)"/>
       <remap from="imu/data_raw" to="$(arg imu_raw_data)"/>
@@ -83,30 +76,49 @@
 
    <!-- 1. imu_data & odom -->
    <!--发布 odom-baselink tf  -->
-    L<node if="$(arg launch_pose_ekf)" pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
+    <node if="$(arg launch_pose_ekf)" pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf"> 
+        <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/pose_ekf_params.yaml" command="load" subst_value="true"/>
         <!-- <remap from="imu_data" to="$(arg imuodom_topic_imu_in)"/> -->
         <remap from="imu_data" to="$(arg imu_raw_data)"/>  <!--TODO IMU融合/滤波-->
         <remap from="odom" to="$(arg odom_raw_topic)" />
-        <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/pose_ekf_params.yaml" command="load" subst_value="true"/>
         <!-- pub: robot_pose_ekf/odom_combined  TF-->
     </node> 
 
    
    <!-- 2. imu_data & odom  -->
-      <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
+   <!-- ekf_loc1 fuses only continuous data (imu and odometry). Publish the tf from odom_frame to base_footprint -->
     <node if="$(arg localization_ekf_pose)" pkg="robot_localization" type="ekf_localization_node" name="ekf_imu_odom" clear_params="true" output="screen" >      
       <!-- sub imu/data-->
       <param name="odom0" value="$(arg odom_raw_topic)"/> <!-- previously: /odom -->
       <param name="imu0" value="$(arg imu_raw_data)"/>        <!-- previously: /imu/data --> 
       <!-- <param name="imu0" value="$(arg imuodom_topic_imu_in)"/>    -->
-
       <!-- pub  -->
       <remap from="odometry/filtered" to="$(arg imuodom_topic_pub)" />
       <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/ekf_imu_odom_params.yaml" command="load" subst_value="true"/>
   </node>
    
+  <!-- TODO if merge gps , 三个一起融合; 保留串级融合用于精度比较 -->
+   <group if ="$(arg use_gps)">
+      <node  pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true" output="screen">
+         <remap from="imu/data" to="$(arg imu_raw_data)"/>    
+         <remap from="odometry/filtered" to="$(arg gpsodom_topic_odom_in)"/>    
+         <remap from="gps/fix" to="$(arg gps_raw)"/>   
+
+         <remap from="odometry/gps" to="$(arg gps_transform_topic_pub)" /> 
+         <rosparam command="load" file="$(find sxl_localization)/config_$(arg config_prefix)/navsat_transform_param.yaml" subst_value="true"/>
+      </node> 
+         <!-- GPS -->
+      <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
+            <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
+            <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
+      </node>
+
+   </group>
 </group>
-  
-    
+
+
+
+
+
   
 </launch>

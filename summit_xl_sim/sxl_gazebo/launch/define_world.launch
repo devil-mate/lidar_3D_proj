@@ -6,7 +6,11 @@
   <arg name="z_pos" default="0.0"/>
 
   
-  <arg name="world_name" default="worlds/empty.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+  <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+  <!-- <arg name="world_name" default="worlds/empty.world"/>  -->
+  <arg name="world_name" value="$(find hector_gazebo_worlds)/worlds/rolling_landscape_120m.world"/>
+  <!-- <arg name="world_name" value="$(find hector_gazebo_worlds)/worlds/sick_robot_day_2012_20m.world"/> -->
+  <!-- <arg name="world_name" value="$(find sxl_gazebo)/worlds/outdor_test.world"/> -->
   <!-- <arg name="world_name" value="$(find tv_gazebo)/worlds/tv_test.world"/> -->
   <!-- <arg name="world_name" value="$(find mygazebo)/worlds/house_2room.world"/> -->
   
