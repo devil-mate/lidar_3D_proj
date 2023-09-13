@@ -5,12 +5,12 @@
 
    <arg name="launch_pose_ekf" default="false"/>
    <arg name="localization_ekf_pose" default="true"/> 
-   <arg name="use_gps" default="true"/> <!--gps（-odom） localization -->
+   <arg name="use_gps" default="false"/> <!--gps（-odom） localization -->
    <!-- gps 融合到里程计 -->
-   <arg name="gps_odom" default="true"/>
+   <arg name="gps_odom" default="false"/>
    <!-- gps融合slam -->
    <arg name="gps_world" default="false"/>
-   <arg name="imuodom_pub_tf" default="false"/>
+   <arg name="imuodom_pub_tf" default="true"/>
    <!-- <arg name="odom_filter_topic" default="odom_topic"/> -->
    
    <!-- laser -->
@@ -22,9 +22,9 @@
    <arg name="imu_raw_mag" default="mavros/imu/mag" />
    <arg name="imuFilter_fixed_frame" default="robot_imu_link" />
    <!-- odom（&imu） params -->
-   <arg name="odom_raw_topic" default="odom" />
+   <!-- <arg name="odom_raw_topic" default="odom" /> -->
+   <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
    <arg name="vins_out_odom" default="vins/odometry"/>
-   <!-- <arg name="odom_raw_topic" default="robotnik_base_control/odom" /> -->
    <arg name="imuodom_topic_imu_in" default="imu/data"/>
    <arg name="imuodom_topic_pub" default="/imuodom_pub"/>
 
@@ -43,7 +43,7 @@
    <arg name="odom_frame" default="odom"/>
    <arg name="base_frame" default="base_link"/>
    <arg name="world_frame" default="world_frame"/> 
-   <arg name="test_world_frame" default="world_frame"/> 
+   <!-- <arg name="test_world_frame" default="world_frame"/>  -->
 
    <!-- <arg name="odom_frame" default="$(arg prefix)odom"/> 
    

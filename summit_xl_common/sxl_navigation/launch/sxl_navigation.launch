@@ -1,4 +1,5 @@
 <launch>
+    <arg name="id_robot" default="robot"/>
   <!-- Arguments -->
   <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
   <arg name="map_file" default="$(find summit_xl_localization)/maps/test/test01.yaml"/>
@@ -26,11 +27,10 @@
   <arg name="launch_robot_t3" default="true"/>
 
   <arg name="prefix" default="robot"/>
-  <arg name="config_prefix" default=""/>
+  <arg name="config_prefix" default="sxl"/>
 
-  <arg name="odom_frame" default="$(arg prefix)odom"/>
-  <arg name="map_frame" default="$(arg prefix)map"/>
-  <arg name="world_frame" default="$(arg prefix)map"/> <!--move base-->
+
+  
 
   <!-- temp -->
   <arg name="imuodom_topic_pub" default="odometry/filtered_imuodom"/>
@@ -54,27 +54,29 @@
   </group> -->
 
       
-    
+    <arg name="odom_frame" default="$(arg prefix)_odom"/>
+  <arg name="map_frame" default="$(arg prefix)_map"/>
+  <arg name="world_frame" default="$(arg prefix)_map"/> <!--move base-->
     
 <!-- 参数更改 -->
     <arg name="laser_raw_topic" default="front_laser/scan"/> 
-    <arg name="imu_raw_data" default="imu" />
-    <!-- <arg name="imu_raw_data" default="imu/data_raw" /> -->
+    <arg name="imu_raw_data" default="imu/data_raw" />
+    <!-- <arg name="imu_raw_data" default="imu" /> -->
     <arg name="imu_raw_mag" default="mavros/imu/mag" /> <!--default false-->
-    <arg name="odom_raw_topic" default="movePlatform_node/odom" />
-    <!-- <arg name="odom_raw_topic" default="robotnik_base_control/odom" /> -->
+    <!-- <arg name="odom_raw_topic" default="movePlatform_node/odom" /> -->
+    <arg name="odom_raw_topic" default="robotnik_base_control/odom" />
     <arg name="img1_raw" default="robot_front_ptz_camera/image_raw"/> 
     <arg name="img2_raw" default="robot_front_ptz_camera/image_raw"/> 
     <arg name="gps_raw" default="gps/NavSatFix"/>
     <arg name="cmd_vel_out" default="robotnik_base_control/cmd_vel"/>
 
+    <arg name="base_frame" default="$(arg prefix)_base_footprint"/>
     <arg name="imuFilter_fixed_frame" default="$(arg prefix)_imu_link"/>
     <arg name="laser_box_frame" default="$(arg prefix)_front_laser_base_link"/>
-    <arg name="base_frame" default="$(arg prefix)_base_footprint"/>
     <arg name="laser_frame" default="$(arg prefix)_front_laser_link"/>
     <!-- <arg name="base_frame" default="base_footprint"/> -->
 
-
+<group ns="$(arg id_robot)">
 
   <!-- data Fusion -->
   <!-- TODO 不同的融合方式 -->
@@ -171,5 +173,5 @@
     <node pkg="rviz" type="rviz" name="rviz" required="true"
           args="-d $(arg rvizConfig)"/>
   </group> -->
-
+  </group> 
 </launch>
