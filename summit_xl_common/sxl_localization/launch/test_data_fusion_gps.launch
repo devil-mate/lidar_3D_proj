@@ -8,7 +8,7 @@
    <arg name="launch_pose_ekf" default="false"/>
    <arg name="localization_ekf_pose" default="true"/> 
    <arg name="use_gps" default="true"/> <!--gps（-odom） localization -->
-   <arg name="imuodom_pub_tf" default="false"/>
+   <arg name="imuodom_pub_tf" default="true"/>
    <!-- <arg name="odom_filter_topic" default="odom_topic"/> -->
    
    <!-- laser -->
@@ -25,6 +25,7 @@
    <arg name="vins_out_odom" default="vins/odometry"/>
    <arg name="imuodom_topic_imu_in" default="imu/data"/>
    <arg name="imuodom_topic_pub" default="imuodom_filtered"/>
+   <!-- <arg name="imuodom_topic_pub" default="odometry/filtered"/> -->
 
    <!-- gps odom params-->
    <arg name="gps_raw" default="gps/NavSatFix"/>
@@ -41,10 +42,8 @@
    <arg name="base_frame" default="$(arg prefix)base_footprint"/> 
    <arg name="world_frame" default="world_frame"/> 
 
-<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_map_broadcaster" args="x y z yaw pitch roll odom map" /> -->
-<!-- <node pkg="tf" type="static_transform_publisher" name="world2odom" args="0 0 0 0 0 0 1 world odom 20"/> -->
-<node pkg="tf" type="static_transform_publisher" name="odom_to_map_broadcaster" 
-    args="1 1 0 0 0 0 1 $(arg odom_frame) $(arg map_frame) 20" />
+<!-- <node pkg="tf" type="static_transform_publisher" name="odom_to_map_broadcaster" 
+    args="1 1 0 0 0 0 1  $(arg map_frame) $(arg odom_frame)" /> -->
    
 <group ns="$(arg id_robot)">
     <!-- laser filter -->
@@ -108,11 +107,15 @@
          <rosparam command="load" file="$(find sxl_localization)/config_$(arg config_prefix)/navsat_transform_param.yaml" subst_value="true"/>
       </node> 
          <!-- GPS -->
-      <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
-            <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
+      <!-- <node  pkg="robot_localization" type="ekf_localization_node" name="ekf_world_odom" clear_params="true" output="screen">      
             <rosparam file="$(find sxl_localization)/config_$(arg config_prefix)/gps_world_ekf_params.yaml" command="load" subst_value="true"/>
-      </node>
 
+            <remap from="odometry/filtered" to="$(arg gpsodom_topic_pub)" />
+      </node> -->
+      <!-- Transform from world to odom (IMU, odometry and GPS) -->
+    <include file="$(find sxl_localization)/launch/sxl_localization_world_gps.launch">
+        <arg name="prefix" value="$(arg prefix)"/>
+    </include>
    </group>
 </group>
 
