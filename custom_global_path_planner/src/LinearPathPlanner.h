@@ -2,8 +2,9 @@
 #define _LINEAR_PATH_PLANNER_H
 #include <ros/ros.h>
 
-#include "nav_core/base_global_planner.h"
-namespace CUSTOM_PATH_PLANNER{
+#include <nav_core/base_global_planner.h>
+
+namespace custom_global_path_planner{
 
 class LinearPathPlanner : public nav_core::BaseGlobalPlanner {
 public:

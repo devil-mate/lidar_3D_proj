@@ -2,7 +2,7 @@
     <arg name="id_robot" default="robot"/>
   <!-- Arguments -->
   <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
-  <arg name="map_file" default="$(find summit_xl_localization)/maps/test/test01.yaml"/>
+  <arg name="map_file" default="$(find sxl_localization)/maps/empty/map_empty.yaml"/>
   <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationtest.rviz" />
   <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigationsxl.rviz" /> -->
   <!-- <arg name="rvizConfig" default="$(find tv_navigation)/rviz/navigation.rviz" /> -->
@@ -12,10 +12,10 @@
   <arg name="locateMethod" default="false"/>
   <arg name="dataFusion" default="true"/> 
   <!-- 定位方式 -->
-  <arg name="use_static_map" default="false"/> 
-  <arg name="launch_amcl" default="false"/> 
+  <arg name="use_static_map" default="true"/> 
+  <arg name="launch_amcl" default="true"/> 
   <arg name="launch_vslam" default="false"/> 
-  <arg name="launch_slam" default="true"/> 
+  <arg name="launch_slam" default="false"/> 
   <!-- 融合 -->
 
   <arg name="cmdGUI" default="false"/>
@@ -112,7 +112,7 @@
         <!-- <param name="frame_id"  value="map_server_frame"/> -->
       </node>
       <!-- AMCL -->
-      <include if="$(arg launch_amcl)" file="$(find summit_xl_localization)/launch/sxl_amcl.launch">
+      <include if="$(arg launch_amcl)" file="$(find sxl_localization)/launch/sxl_amcl.launch">
         <arg name="scan_topic" value="$(arg laser_filtered_topic)"/>
         <arg name="base_frame"  value="$(arg base_frame)"/>
         <arg name="odom_frame"  value="$(arg odom_frame)"/> 
