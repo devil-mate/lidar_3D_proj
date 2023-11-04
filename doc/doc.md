@@ -28,7 +28,10 @@
 
 # 文件组织结构
 * lidar_3D_proj
-    * summit_xl_sim 
+    * summit_xl_sim 仿真环境
+        * sxl_gazebo 包
+            * 用来启动不同世界/机器人环境。
+
         * summit_xl_sim 启动仿真环境gazebo
         * sxl_sim 自定义的各种仿真launch文件,比如slam/vslam/3d-laserSlam仿真,navigation仿真,gui命令等.
             * > 这里只是本项目的机器人启动控制**launch文件**,以及相关的**配置文件**. 其依赖的包/具体实现可能是在各个地方.
@@ -36,6 +39,15 @@
     * summit_xl_common:  具体的slam/navigation实现,仿真或者实际使用时依靠这些包
         * sxl_vslam 包
         * sxl_loam 
+
+
+# sxl_xx 自定义机器人使用基本步骤
+1.  启动 gazebo仿真环境
+    ```
+    roslaunch sxl_gazebo sxl_robot_world.launch
+    ```
+2. 
+
 # summit_xl 机器人(源码)使用
 * > 基本原则,尽量不更改源码,自己需要的话重新写launch文件.
 * 参考
@@ -50,7 +62,7 @@
         *  summit_xl_sim_bringup
     * robotnik_sensors: r
     * robotnik_msgs:
-* 具体使用:
+* 源文件/开源工程具体使用:
     * 参照源码的readme.md
     * 启动:
         ```
