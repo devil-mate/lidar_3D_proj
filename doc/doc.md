@@ -69,3 +69,44 @@
         roslaunch summit_xl_sim_bringup summit_xl_complete.launch
         ```
         * 可以根据参数设置, 实现gmapping /navigation功能; 但自己使用时,只用它完成启动world,其他如gmapping/navigation, 以及rviz等用自己的启动文件.
+
+
+# lidar_3D_proj 工程的使用
+* > 自己更改的包的使用：
+* 基本思路：
+    * 仿真环境包
+        * 启动模拟环境代替物理模型；
+    * 其他包基本就是真实环境和仿真环境共用的包
+        * 即，在物理环境时，不启动这个仿真包即可完全一样的运行。
+    * 所以：
+        1. gazebo环境启动，用以模拟/代替真实模型和环境（包括了所有传感器信息）。
+        2. 启动rviz，可视化信息； rivz单独启动，仿真和真实调试环境都需要(部署环境不需要)
+        3. 启动实际业务程序(要做到：仿真和实际一样)。
+
+* 基本文件/结构组织：
+    * sxl_gazebo: 
+        * 机器人模型，以及机器人底盘相关的数据： 里程计、imu、激光雷达等。
+        * > sxl_gazeb包，只负责启动gazebo相关环境即可(模型)； rviz以及仿真放到sxl_sim包
+    1. 启动模型
+        ```
+        roslaunch sxl_gazebo sxl_robot_world.launch
+        ```
+        * 需要正确启动模型，模型中包括传感器以及控制器，注意看有没有报错。比如，模型中使用了diff_drive_controller/DiffDriveController，那么需要有这个控制插件，才能实现差速控制。
+            * 当然，这个插件很常用，就在ros_controllers包中。
+        * 测试：
+            ```
+            rostopic pub -r 10 /robot/robotnik_base_control/cmd_vel ...
+            ```
+            * 比如发布原地转圈的cmd_vel，即可看到模型运动。
+    2. 启动rviz可视化
+        ```
+        roslaunch sxl_sim sxl_rviz.launch
+        ```
+    3. 启动自己的任务
+        * 比如slam，路径规划等
+    * gazebo模型启动完成后，可以看到它本身的tf关系树是完整的，自然是没有odom坐标系的，因为它只是发布了自身传感器数据。 现在，需要自己处理传感器数据，比如编码器和imu进行融合得到里程计从而发布出里程计数据(使用tf发布到tf树)。
+        * 可以使用 robot_pose_ekf 包进行融合，得到里程计数据(并发布tf)
+
+    
+
+     

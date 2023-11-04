@@ -1,3 +1,5 @@
+frequency: 10
+delay: 2
 magnetic_declination_radians:  0.0 
 yaw_offset:  0
 use_odometry_yaw:  false  # if false, take yaw from imu. if true, from odom 
@@ -5,7 +7,6 @@ wait_for_datum:  $(arg wait_for_datum)
 zero_altitude:  true
 broadcast_utm_transform:  true
 publish_filtered_gps:  true
-world_frame: $(arg world_frame)
 
 
 #<!-- If your IMU does not account for magnetic declination -->

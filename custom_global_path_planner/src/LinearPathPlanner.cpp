@@ -1,10 +1,12 @@
+
+
 #include <pluginlib/class_list_macros.hpp>
-#include <pluginlib/class_list_macros.h>
 #include "LinearPathPlanner.h"
+#include <pluginlib/class_list_macros.h>
 
-PLUGINLIB_EXPORT_CLASS(CUSTOM_PATH_PLANNER::LinearPathPlanner, nav_core::BaseGlobalPlanner);
+PLUGINLIB_EXPORT_CLASS(custom_global_path_planner::LinearPathPlanner, nav_core::BaseGlobalPlanner);
 
-namespace CUSTOM_PATH_PLANNER{
+namespace custom_global_path_planner{
 
 LinearPathPlanner::LinearPathPlanner(){
 

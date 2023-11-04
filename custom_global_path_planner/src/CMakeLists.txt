@@ -50,9 +50,9 @@ set(SIMPLE_LIB
 
 
 
-add_library(LinearPathPlanner  LinearPathPlanner.cpp )
-# target_link_libraries(LinearPathPlanner ${catkin_LIBRARIES})
-# add_dependencies(LinearPathPlanner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_library(linear_path_planner  LinearPathPlanner.cpp )
+add_dependencies(linear_path_planner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(linear_path_planner ${catkin_LIBRARIES})
 
 
 

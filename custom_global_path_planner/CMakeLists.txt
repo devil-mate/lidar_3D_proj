@@ -12,6 +12,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   pluginlib
+  nav_core
+  global_planner
+#   base_global_planner
+  costmap_2d
 )
 
 ## System dependencies are found with CMake's conventions

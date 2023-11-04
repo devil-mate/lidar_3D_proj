@@ -3,7 +3,7 @@ project(sxl_localization)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  robot_localization
+
   tf2
   tf
   tf2_ros
@@ -11,16 +11,16 @@ find_package(catkin REQUIRED COMPONENTS
   message_filters
   std_msgs
   std_srvs
-  geographic_msgs
   geometry_msgs
-  nav_msgs
-  sensor_msgs
-  robotnik_msgs
-  mavros_msgs
-  robot_localization
-  gmapping
-  map_server
-  amcl
+#   nav_msgs
+#   sensor_msgs
+#   mavros_msgs
+#   gmapping
+#   map_server
+#   amcl
+  #   robot_localization
+#   geographic_msgs
+# robotnik_msgs
 )
 
 ###################################

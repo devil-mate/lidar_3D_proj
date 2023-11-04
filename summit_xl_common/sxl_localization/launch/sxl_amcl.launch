@@ -18,7 +18,7 @@
     <remap from="scan" to="$(arg scan_topic)"/>
     <remap from="map" to="$(arg map_topic)"/>
 
-    <rosparam command="load" file="$(find summit_xl_localization)/config_$(arg config_prefix)/amcl.yaml" subst_value="true"/>
+    <rosparam command="load" file="$(find sxl_localization)/config_$(arg config_prefix)/amcl.yaml" subst_value="true"/>
 
   </node>
 

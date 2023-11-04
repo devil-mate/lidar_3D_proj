@@ -1,3 +1,4 @@
+<!-- TODO 多机器人 -->
 <?xml version="1.0"?>
 <launch>
 
@@ -12,10 +13,13 @@
     <arg name="launch_robot_b" default="false"/>
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
+    
+	<arg name="gazebo_world" value="worlds/empty.world"/>
+	<!-- <arg name="gazebo_world" value="$(find hector_gazebo_worlds)/worlds/rolling_landscape_120m.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
-	<arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/tv_test.world"/>
+	<!-- <arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/outdor_test.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
-    <!-- <arg name="gazebo_world" default="$(find mygazebo)/worlds/house_2room.world"/> -->
+    <!-- <arg name="gazebo_world" default="$(find sxl_gazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
     <arg name="debug" default="false"/>
     <arg name="omni_drive" default="false"/>
@@ -30,7 +34,8 @@
 	<!-- robot a -->
 	<arg name="id_robot_a" default="robot"/>
 	<arg name="x_init_pose_robot_a" default="0" />
-	<arg name="y_init_pose_robot_a" default="-1.5" />
+	<!-- <arg name="y_init_pose_robot_a" default="-1.5" /> -->
+	<arg name="y_init_pose_robot_a" default="0" />
 	<arg name="z_init_pose_robot_a" default="0" />
     <arg name="ekf_localization_robot_a" default="false"/>
     <arg name="ekf_localization_mode_a" default="odom"/>

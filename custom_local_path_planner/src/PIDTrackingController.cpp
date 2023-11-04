@@ -3,7 +3,31 @@
 namespace CUSTOM_PATH_PLANNER{
 
 
-PIDTrackingController::PIDTrackingController(){
+PIDTrackingController::PIDTrackingController():nh("~"){
+    pidController_ = std::make_pair<PIDController>();
+    
+
+}
+void PIDTrackingController::initialize(std::string name, tf2_ros::Buffer* tf, costmap_2d::Costmap2DROS* costmap_ros){
+
+
+    initialized_ = true;
+}
+void PIDTrackingController::initParams(){
+
+    try
+    {
+        nh.param("global_frame", global_frame_, std::string("odom"));
+        nh.param("robot_base_frame", robot_base_frame_, std::string("base_link"));
+
+        pidController_->params_.Kd=1.0;
+    }
+    catch(const std::exception& e)
+    {
+        ROS_ERROR_STREAM(e.what() );
+        throw -1;
+    }
+
 
 }
 bool PIDTrackingController::computeVelocityCommands(geometry_msgs::Twist& cmd_vel){
@@ -23,52 +47,127 @@ bool PIDTrackingController::computeVelocityCommands(geometry_msgs::Twist& cmd_ve
     }
     // 全局路径裁剪
     // TODO 根据输入是全局路径还是相对路径进行转换
-    pruneGlobalPlan();
+    // pruneGlobalPlan();
+    //  TEST/TEMP 不裁剪，直接跟踪全局路径
+
     //  相对路径
-    std::vector<geometry_msgs::PoseStamped> transformed_plan;
-    if ( ! planner_util_.getLocalPlan(current_pose_, transformed_plan)) {
-      ROS_ERROR("Could not get local plan");
-      return false;
-    }
+    // std::vector<geometry_msgs::PoseStamped> transformed_plan;
+    // if ( ! planner_util_.getLocalPlan(current_pose_, transformed_plan)) {
+    //   ROS_ERROR("Could not get local plan");
+    //   return false;
+    // }
 
     //if the global plan passed in is empty... we won't do anything
-    if(transformed_plan.empty()) {
-      ROS_WARN_NAMED("dwa_local_planner", "Received an empty transformed plan.");
+    // TODO 坐标变换
+    // 
+    if(global_plan_.empty()) {
+      ROS_WARN_NAMED("local_planner", "Received an empty transformed plan.");
       return false;
     }
-    ROS_DEBUG_NAMED("dwa_local_planner", "Received a transformed plan with %zu points.", transformed_plan.size());
+    ROS_DEBUG_NAMED("local_planner", "Received a transformed plan with %zu points.", global_plan_.size());
+
+    
+
 
     // update plan in dwa_planner even if we just stop and rotate, to allow checkTrajectory
-    dp_->updatePlanAndLocalCosts(current_pose_, transformed_plan, costmap_ros_->getRobotFootprint());
+    // dp_->updatePlanAndLocalCosts(current_pose_, transformed_plan, costmap_ros_->getRobotFootprint());
 
     if (latchedStopRotateController_.isPositionReached(&planner_util_, current_pose_)) {
       //publish an empty plan because we've reached our goal position
-      std::vector<geometry_msgs::PoseStamped> local_plan;
-      std::vector<geometry_msgs::PoseStamped> transformed_plan;
-      publishGlobalPlan(transformed_plan);
-      publishLocalPlan(local_plan);
-      base_local_planner::LocalPlannerLimits limits = planner_util_.getCurrentLimits();
-      return latchedStopRotateController_.computeVelocityCommandsStopRotate(
-          cmd_vel,
-          limits.getAccLimits(),
-          dp_->getSimPeriod(),
-          &planner_util_,
-          odom_helper_,
-          current_pose_,
-          boost::bind(&DWAPlanner::checkTrajectory, dp_, _1, _2, _3));
-    } else {
-      bool isOk = dwaComputeVelocityCommands(current_pose_, cmd_vel);
-      if (isOk) {
+        std::vector<geometry_msgs::PoseStamped> local_plan;
+        std::vector<geometry_msgs::PoseStamped> transformed_plan;
         publishGlobalPlan(transformed_plan);
-      } else {
-        ROS_WARN_NAMED("dwa_local_planner", "DWA planner failed to produce path.");
-        std::vector<geometry_msgs::PoseStamped> empty_plan;
-        publishGlobalPlan(empty_plan);
-      }
-      return isOk;
+        publishLocalPlan(local_plan);
+        base_local_planner::LocalPlannerLimits limits = planner_util_.getCurrentLimits();
+        return latchedStopRotateController_.computeVelocityCommandsStopRotate(
+            cmd_vel,
+            limits.getAccLimits(),
+            dp_->getSimPeriod(),
+            &planner_util_,
+            odom_helper_,
+            current_pose_,
+            boost::bind(&DWAPlanner::checkTrajectory, dp_, _1, _2, _3));
+    } else {
+        bool isOk = PIDComputeVelocityCommands(current_pose_, cmd_vel);
+            
+        if (isOk) {
+            publishGlobalPlan(transformed_plan);
+        } else {
+            ROS_WARN_NAMED("dwa_local_planner", "DWA planner failed to produce path.");
+            std::vector<geometry_msgs::PoseStamped> empty_plan;
+            publishGlobalPlan(empty_plan);
+        }
+        return isOk;
     }
   
 
+}
+
+bool PIDTrackingController::PIDComputeVelocityCommands(geometry_msgs::PoseStamped &currentPose, geometry_msgs::Twist& cmd_vel){
+    geometry_msgs::PoseStamped previewPose;
+    calcPreviewPoint(previewPose);
+    // TODO dt
+    float yaw =pidController_->calculate(previewPose,current_pose_,dt);
+    // TODO 
+    // （yaw-yaw_current）/dt
+    double yaw_current= tf::getYaw(currentPose.pose.orientation);
+    double w =(yaw -yaw_current);
+    cmd_vel.angular.z=(yaw-yaw_current)/dt;
+
+}
+bool PIDTrackingController::calcPreviewPoint(geometry_msgs::PoseStamped &previewPose){
+
+
+}
+// 获取机器人位姿
+bool  PIDTrackingController::getRobotPose(geometry_msgs::PoseStamped &global_pose){
+tf2::toMsg(tf2::Transform::getIdentity(), global_pose.pose);
+  geometry_msgs::PoseStamped robot_pose;
+  tf2::toMsg(tf2::Transform::getIdentity(), robot_pose.pose);
+  robot_pose.header.frame_id = robot_base_frame_;
+  robot_pose.header.stamp = ros::Time();
+  ros::Time current_time = ros::Time::now();  // save time for checking tf delay later
+
+  // get the global pose of the robot
+  try
+  {
+    // use current time if possible (makes sure it's not in the future)
+    if (tf_.canTransform(global_frame_, robot_base_frame_, current_time))
+    {
+      geometry_msgs::TransformStamped transform = tf_.lookupTransform(global_frame_, robot_base_frame_, current_time);
+      tf2::doTransform(robot_pose, global_pose, transform);
+    }
+    // use the latest otherwise
+    else
+    {
+      tf_.transform(robot_pose, global_pose, global_frame_);
+    }
+  }
+  catch (tf2::LookupException& ex)
+  {
+    ROS_ERROR_THROTTLE(1.0, "No Transform available Error looking up robot pose: %s\n", ex.what());
+    return false;
+  }
+  catch (tf2::ConnectivityException& ex)
+  {
+    ROS_ERROR_THROTTLE(1.0, "Connectivity Error looking up robot pose: %s\n", ex.what());
+    return false;
+  }
+  catch (tf2::ExtrapolationException& ex)
+  {
+    ROS_ERROR_THROTTLE(1.0, "Extrapolation Error looking up robot pose: %s\n", ex.what());
+    return false;
+  }
+  // check global_pose timeout
+  if (current_time.toSec() - global_pose.header.stamp.toSec() > transform_tolerance_)
+  {
+    ROS_WARN_THROTTLE(1.0,
+                      "Costmap2DROS transform timeout. Current time: %.4f, global_pose stamp: %.4f, tolerance: %.4f",
+                      current_time.toSec(), global_pose.header.stamp.toSec(), transform_tolerance_);
+    return false;
+  }
+
+  return true;
 }
 
 bool PIDTrackingController::isGoalReached(){
@@ -78,14 +177,17 @@ bool PIDTrackingController::isGoalReached(){
 
 bool PIDTrackingController::setPlan(const std::vector<geometry_msgs::PoseStamped>& plan){
 
+  if(!initialized_){
+    ROS_ERROR("local planner  have not been initialized, please call initialize() first");
+    return false;
+  }
+    global_plan_.clear();
+    global_plan_ = plan;
+    
+    return true;
 
 }
 
-void PIDTrackingController::initialize(std::string name, tf2_ros::Buffer* tf, costmap_2d::Costmap2DROS* costmap_ros){
-
-
-    initialized_ = true;
-}
 
 
 // 
