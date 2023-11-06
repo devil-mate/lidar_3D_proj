@@ -3,7 +3,6 @@
 <launch>
 
     <!-- arg to config the launch file-->
-
     <!--launch_navigation and launch_navigation_nomap args are exclusive
     and they are (or not) launched for all robots-->
 	<param name="/use_sim_time" value="true" />
@@ -14,10 +13,10 @@
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
     
-	<arg name="gazebo_world" value="worlds/empty.world"/>
+	<!-- <arg name="gazebo_world" value="worlds/empty.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find hector_gazebo_worlds)/worlds/rolling_landscape_120m.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
-	<!-- <arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/outdor_test.world"/> -->
+	<arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/outdor_test.world"/>
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
     <!-- <arg name="gazebo_world" default="$(find sxl_gazebo)/worlds/house_2room.world"/> -->
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>

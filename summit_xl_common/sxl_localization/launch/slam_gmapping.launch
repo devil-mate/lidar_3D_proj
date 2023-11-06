@@ -16,7 +16,7 @@
 
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
     <remap from="scan" to ="$(arg scan_topic)"/>
-  	<rosparam command="load" file="$(find summit_xl_localization)/config/slam_gmapping.yaml" subst_value="true"/>
+  	<rosparam command="load" file="$(find sxl_localization)/config/slam_gmapping.yaml" subst_value="true"/>
   </node>
 
 </launch>

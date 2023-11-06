@@ -11,9 +11,10 @@
     <arg name="launch_robot_c" default="false"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
     
-    <arg name="gazebo_world" value="worlds/empty.world"/>
+    <!-- <arg name="gazebo_world" value="worlds/empty.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find hector_gazebo_worlds)/worlds/rolling_landscape_120m.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/outer_test.world"/> -->
+	<arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/simple_workshop.world"/>
 	<!-- <arg name="gazebo_world" value="$(find sxl_gazebo)/worlds/outdor_test.world"/> -->
 	<!-- <arg name="gazebo_world" value="$(find summit_xl_gazebo)/worlds/test_laserfilter.world"/> -->
     <!-- <arg name="gazebo_world" default="$(find sxl_gazebo)/worlds/house_2room.world"/> -->

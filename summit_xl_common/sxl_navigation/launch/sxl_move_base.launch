@@ -28,8 +28,8 @@
     <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/local_costmap_params.yaml" command="load" subst_value="true"/>
     <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/move_base_params.yaml" command="load" />
     <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/global_planner_params.yaml" command="load" />
-    <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/dwa_local_planner_params.yaml" command="load" />
-    <!-- <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/teb_local_planner_diff_params.yaml" command="load" subst_value="true"/> -->
+    <!-- <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/dwa_local_planner_params.yaml" command="load" /> -->
+    <rosparam file="$(find sxl_navigation)/config_$(arg config_prefix)/teb_local_planner_diff_params.yaml" command="load" subst_value="true"/>
     <remap from="cmd_vel" to="move_base/cmd_vel"/>
     <remap from="odom" to="$(arg odom_topic)"/>
 

@@ -44,10 +44,13 @@
 # sxl_xx 自定义机器人使用基本步骤
 1.  启动 gazebo仿真环境
     ```
-    roslaunch sxl_gazebo sxl_robot_world.launch
+    roslaunch sxl_gazebo sxl_one_robot_world.launch
     ```
-2. 
-
+2. 启动rviz可视化
+    ```
+    roslaunch sxl_sim sxl_rviz.launch
+    ```
+    * 单独的一个包sxl_sim，而不方到sxl_gazebo包中，便于和仿真完全分离(仿真和实际调试都可以使用)
 # summit_xl 机器人(源码)使用
 * > 基本原则,尽量不更改源码,自己需要的话重新写launch文件.
 * 参考
