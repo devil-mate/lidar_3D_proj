@@ -51,6 +51,19 @@
     roslaunch sxl_sim sxl_rviz.launch
     ```
     * 单独的一个包sxl_sim，而不方到sxl_gazebo包中，便于和仿真完全分离(仿真和实际调试都可以使用)
+3. 启动应用
+    ```
+    roslaunch sxl_navigation sxl_slam.launch # 建图
+    ```
+* 保存地图
+    ```
+    rosrun map_server map_saver map:=map -f  path
+    eg:
+    rosrun map_server map_saver map:=/robot/map -f /home/jl/catkin_ws/src/lidar_3D_proj/summit_xl_sim/map/simple_workshop
+
+    ```
+    * 注意是节点map_saver， map为topic 
+
 # summit_xl 机器人(源码)使用
 * > 基本原则,尽量不更改源码,自己需要的话重新写launch文件.
 * 参考
